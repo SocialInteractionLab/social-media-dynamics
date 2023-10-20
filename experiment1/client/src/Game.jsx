@@ -2,8 +2,7 @@ import { useGame } from "@empirica/core/player/classic/react";
 
 import React from "react";
 import { Chat } from "./components/Chat"
-import { Profile } from "./Profile";
-import { Stage } from "./Stage";
+import { Profile } from "./components/Profile";
 
 export function Game() {
   const game = useGame();
