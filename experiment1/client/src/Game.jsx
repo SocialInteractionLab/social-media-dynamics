@@ -1,6 +1,7 @@
-import { Chat, useGame } from "@empirica/core/player/classic/react";
+import { useGame } from "@empirica/core/player/classic/react";
 
 import React from "react";
+import { Chat } from "./components/Chat"
 import { Profile } from "./Profile";
 import { Stage } from "./Stage";
 
@@ -13,15 +14,9 @@ export function Game() {
       <div className="h-full w-full flex flex-col">
         <Profile />
         <div className="h-full flex items-center justify-center">
-          <Stage />
-        </div>
-      </div>
-
-      {playerCount > 1 && (
-        <div className="h-full w-128 border-l flex justify-center items-center">
           <Chat scope={game} attribute="chat" />
         </div>
-      )}
+      </div>
     </div>
   );
 }
