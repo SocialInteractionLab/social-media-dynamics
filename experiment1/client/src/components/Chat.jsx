@@ -10,7 +10,7 @@ export function Chat({ scope, attribute, loading}) {
     const handleNewMessage = (text) => {
         scope.append(attribute, {
             text,
-            likes : 0,
+            likes : {},
             sender: {
                 id: player.id,
                 name: player.get("name") || player.id,
@@ -20,13 +20,13 @@ export function Chat({ scope, attribute, loading}) {
     };
     let msgs = scope.getAttribute(attribute)?.items || [];
     return (<div className="h-5/6 w-100 justify-center flex flex-col">
-      <MessagesPanel scope={scope} msgs={msgs}/>
+      <MessagesPanel scope={scope} msgs={msgs} player={player}/>
       <InputBox onNewMessage={handleNewMessage}/>
     </div>);
 }
 
 function MessagesPanel(props) {
-    let {scope, msgs } = props;
+    let {player, scope, msgs } = props;
     const scroller = useRef(null);
     const [msgCount, setMsgCount] = useState(0);
     useEffect(() => {
@@ -58,18 +58,18 @@ function MessagesPanel(props) {
       </div>);
     }
     return (<div className="h-full overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
-         {msgs.map((msg) => (<MessageComp key={msg.id} attribute={msg}/>))}
+        {msgs.map((msg, i) => (<MessageComp key={msg.id} index = {i} player={player} scope={scope} attribute={msg}/>))}
     </div>);
 }
 
 //*
 // MessageComp is the component showing an individual message
 //*
-function MessageComp({attribute}) {
+function MessageComp(props) {
+    let {player, scope, attribute, index} = props;
     const msg = attribute.value;
     const ts = attribute.createdAt;
     let avatar = msg.sender.avatar;
-    const [likes, setLikes] = useState(0);
     if (!avatar) {
         avatar = `https://avatars.dicebear.com/api/identicon/${msg.sender.id}.svg`;
     }
@@ -79,23 +79,21 @@ function MessageComp({attribute}) {
         avatarImage = (<div className="inline-block h-9 w-9 rounded-full">{avatar}</div>);
     }
 
+    let item = scope.get("chat")[index]
     let handleLike = (e) => {
         e.preventDefault();
+        let newLikes = {...item.likes}
+        newLikes[player.id] = item.likes[player.id] == 1 ? 0 : 1
+        scope.set("chat", {...item, likes: newLikes}, {index: index})
         e.target = e.target.tagName == 'path' ? e.target.parentElement : e.target;
-        e.target.style.fill = e.target.style.fill == 'none' ? 'red' : 'none'
-        //attribute.set({...msg, likes: msg.likes + 1})
-//        attribute.set("likes", 5)
-        setLikes(e.target.style.fill == 'none' ? likes - 1 : likes + 1)
     }
-
     let likeIcon = (
-            <svg onClick={handleLike} className="h-10 w-10" style={{"fill":"none","stroke":"#303030","strokeWidth":"0.7","strokeLineCap":"round","strokeLinejoin":"round","strokeMiterlimit":"10"}}>
+        <svg onClick={handleLike} className="h-10 w-10" style={{"fill": item.likes[player.id] == 1 ? 'red' : 'none',"stroke":"#303030","strokeWidth":"0.7","strokeLineCap":"round","strokeLinejoin":"round","strokeMiterlimit":"10"}}>
                 <path d="M23.99294,15.87192l1.01585-0.88887c1.39679-1.22748,3.11808-1.83417,4.85349-1.83417    c2.03169,0,4.03517,0.83243,5.48839,2.45496c2.59605,2.93467,2.41263,7.35077-0.33862,10.0597l-9.82842,8.73568    c-0.67944,0.60256-1.70193,0.60256-2.38137,0l-9.81431-8.73568c-2.75125-2.69481-2.93467-7.12503-0.33862-10.0597    c1.45322-1.62253,3.4567-2.45496,5.48839-2.45496c1.7213,0,3.4567,0.60669,4.85349,1.83417L23.99294,15.87192"/>
                 <path d="M13.97946,19.68624c0.10696-0.4492,0.2748-0.88792,0.50438-1.30326    c0.18132-0.32803,0.40115-0.64148,0.6599-0.93398c1.0309-1.15101,2.45214-1.74152,3.8934-1.74152"/>
                 <path d="M14.55714,23.5316c-0.29234-0.49406-0.49641-1.02862-0.61064-1.57971"/>
             </svg>
     )
-
     return (<div className="flex items-start my-2 shadow p-8">
       <div className="flex-shrink-0">{avatarImage}</div>
       <div className="ml-3 text-sm">
@@ -107,7 +105,10 @@ function MessageComp({attribute}) {
           <span className="pl-2 text-gray-400">{ts && relTime(ts)}</span>
         </p>
         <p className="text-gray-900 group-hover:text-gray-800">{msg.text}</p>
-          <p className="flex" style={{'lineHeight': '3.5'}}><span>{likeIcon}</span> <span className="pl-2">{likes}</span></p>
+          <p id={scope.get('chat').index} className="flex" style={{'lineHeight': '3.5'}}>
+              <span>{likeIcon}</span>
+              <span className="pl-2">{Object.values(item.likes).reduce((a,b)=>a+b,0)}</span>
+          </p>
       </div>
     </div>);
 }
