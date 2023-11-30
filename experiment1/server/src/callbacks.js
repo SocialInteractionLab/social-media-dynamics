@@ -2,25 +2,23 @@ import { ClassicListenersCollector } from "@empirica/core/admin/classic";
 export const Empirica = new ClassicListenersCollector();
 
 Empirica.onGameStart(({ game }) => {
-  const round = game.addRound({
-    name: "Chat",
-    task: "Chat",
+  [0,1,2,3,4,5].forEach(i => {
+    const round = game.addRound({
+      idx: i,
+      name: "Send message",
+      task: "Chat"
+    });
+    round.addStage({ name: "Chat -- phase 1", duration: 1000000 });
   });
-  round.addStage({ name: "Chat -- phase 1", duration: 20 });
-  round.addStage({ name: "Chat -- phase 2", duration: 20 });
-  round.addStage({ name: "Chat -- phase 3", duration: 20 });
-});
+})
 
-
-
-
-Empirica.onRoundStart(({ game, round }) => {
-  players.forEach(player => {
-    const roomId = _.findIndex(rooms, room => _.includes(room, player._id));
-    player.set('roomId', 'room' + roomId);
-    player.set('partner', player.get('partnerList')[round.index]),
-    player.set('role', player.get('roleList')[round.index])
-    player.set('clicked', false);
+Empirica.onRoundStart(({ round }) => {
+  const players = round.currentGame.players;
+  console.log(players)
+  players.forEach((player, i) => {
+    const otherPlayers = players.filter(p => p.id != player.id)
+    console.log('setting player id', player.id, 'recipient to ', otherPlayers[(i + round.get('idx')) % otherPlayers.length].id)
+    player.set('recipient', otherPlayers[(i + round.get('idx')) % otherPlayers.length].id);
   });
 });
 
