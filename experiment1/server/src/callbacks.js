@@ -6,14 +6,27 @@ Empirica.onGameStart(({ game }) => {
     name: "Chat",
     task: "Chat",
   });
-  round.addStage({ name: "Chat -- phase 1", duration: 1000 });
-  round.addStage({ name: "Chat -- phase 2", duration: 1000 });
-  round.addStage({ name: "Chat -- phase 3", duration: 100000 });
+  round.addStage({ name: "Chat -- phase 1", duration: 20 });
+  round.addStage({ name: "Chat -- phase 2", duration: 20 });
+  round.addStage({ name: "Chat -- phase 3", duration: 20 });
 });
 
-Empirica.onRoundStart(({ round }) => {});
+
+
+
+Empirica.onRoundStart(({ game, round }) => {
+  players.forEach(player => {
+    const roomId = _.findIndex(rooms, room => _.includes(room, player._id));
+    player.set('roomId', 'room' + roomId);
+    player.set('partner', player.get('partnerList')[round.index]),
+    player.set('role', player.get('roleList')[round.index])
+    player.set('clicked', false);
+  });
+});
+
 
 Empirica.onStageStart(({ stage }) => {});
+
 
 Empirica.onStageEnded(({ stage }) => {});
 
