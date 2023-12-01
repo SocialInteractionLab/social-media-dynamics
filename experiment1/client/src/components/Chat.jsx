@@ -11,6 +11,7 @@ export function Chat({ scope, attribute, loading}) {
         scope.append(attribute, {
             text,
             likes : {},
+            recipient: player.get("recipient"),
             sender: {
                 id: player.id,
                 name: player.get("name") || player.id,
@@ -57,8 +58,15 @@ function MessagesPanel(props) {
         </div>
       </div>);
     }
-    return (<div className="h-full overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
-        {msgs.map((msg, i) => (<MessageComp key={msg.id} index = {i} player={player} scope={scope} attribute={msg}/>))}
+    console.log(msgs.map((msg, i) => msg.value.recipient))
+    console.log('recipient', player.get('recipient'))
+    console.log('self', player.id)
+    return (
+        <div className="h-full overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
+            {msgs.filter(
+                (msg,i) => msg.value.recipient == player.id
+            ).map(
+                (msg, i) => (<MessageComp key={msg.id} index = {i} player={player} scope={scope} attribute={msg}/>))}
     </div>);
 }
 
