@@ -62,7 +62,7 @@ function MessagesPanel(props) {
     return (
         <div className="h-full overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
             {msgs.filter(
-                (msg,i) => msg.value.recipient == player.id
+                (msg) => msg.value.recipient == player.id
             ).map(
                 (msg, i) => (<MessageComp key={msg.id} index = {i} player={player} scope={scope} attribute={msg}/>))}
     </div>);
