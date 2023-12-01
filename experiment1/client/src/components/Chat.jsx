@@ -58,9 +58,7 @@ function MessagesPanel(props) {
         </div>
       </div>);
     }
-    console.log(msgs.map((msg, i) => msg.value.recipient))
-    console.log('recipient', player.get('recipient'))
-    console.log('self', player.id)
+
     return (
         <div className="h-full overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
             {msgs.filter(
