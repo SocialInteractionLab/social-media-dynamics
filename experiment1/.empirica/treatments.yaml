@@ -18,9 +18,6 @@ treatments:
       desc: Two-player Game
       factors:
         playerCount: 2
-    - name: multiplayer
-      factors:
-        playerCount: 13
     - name: "4"
       factors:
         playerCount: 4
