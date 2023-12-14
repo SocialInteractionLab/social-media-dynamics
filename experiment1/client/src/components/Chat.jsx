@@ -77,7 +77,7 @@ function MessageComp(props) {
     const ts = attribute.createdAt;
     let avatar = msg.sender.avatar;
     if (!avatar) {
-        avatar = `https://avatars.dicebear.com/api/identicon/${msg.sender.id}.svg`;
+        avatar = `https://api.dicebear.com/7.x/fun-emoji/svg?seed=${msg.sender.id}`;
     }
 
     let avatarImage = (
