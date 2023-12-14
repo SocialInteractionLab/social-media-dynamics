@@ -80,43 +80,31 @@ function MessageComp(props) {
         avatar = `https://avatars.dicebear.com/api/identicon/${msg.sender.id}.svg`;
     }
 
-    let avatarImage = (<img className="inline-block h-9 w-9 rounded-full" src={avatar} alt={msg.sender.id}/>);
+    let avatarImage = (
+        <img className="inline-block h-9 w-9 rounded-full" src={avatar} alt={msg.sender.id}/>
+    );
     if (!avatar.startsWith("http")) {
-        avatarImage = (<div className="inline-block h-9 w-9 rounded-full">{avatar}</div>);
+        avatarImage = (
+            <div className="inline-block h-9 w-9 rounded-full">{avatar}</div>
+        );
     }
 
-    let item = scope.get("chat")[index]
-    let handleLike = (e) => {
-        e.preventDefault();
-        let newLikes = {...item.likes}
-        newLikes[player.id] = item.likes[player.id] == 1 ? 0 : 1
-        scope.set("chat", {...item, likes: newLikes}, {index: index})
-        e.target = e.target.tagName == 'path' ? e.target.parentElement : e.target;
-    }
-    let likeIcon = (
-        <svg onClick={handleLike} className="h-10 w-10" style={{"fill": item.likes[player.id] == 1 ? 'red' : 'none',"stroke":"#303030","strokeWidth":"0.7","strokeLineCap":"round","strokeLinejoin":"round","strokeMiterlimit":"10"}}>
-                <path d="M23.99294,15.87192l1.01585-0.88887c1.39679-1.22748,3.11808-1.83417,4.85349-1.83417    c2.03169,0,4.03517,0.83243,5.48839,2.45496c2.59605,2.93467,2.41263,7.35077-0.33862,10.0597l-9.82842,8.73568    c-0.67944,0.60256-1.70193,0.60256-2.38137,0l-9.81431-8.73568c-2.75125-2.69481-2.93467-7.12503-0.33862-10.0597    c1.45322-1.62253,3.4567-2.45496,5.48839-2.45496c1.7213,0,3.4567,0.60669,4.85349,1.83417L23.99294,15.87192"/>
-                <path d="M13.97946,19.68624c0.10696-0.4492,0.2748-0.88792,0.50438-1.30326    c0.18132-0.32803,0.40115-0.64148,0.6599-0.93398c1.0309-1.15101,2.45214-1.74152,3.8934-1.74152"/>
-                <path d="M14.55714,23.5316c-0.29234-0.49406-0.49641-1.02862-0.61064-1.57971"/>
-            </svg>
-    )
-    return (<div className="flex items-start my-2 shadow p-8">
-      <div className="flex-shrink-0">{avatarImage}</div>
-      <div className="ml-3 text-sm">
-        <p>
-          <span className="font-semibold text-gray-900 group-hover:text-gray-800">
-            {msg.sender.name}
-          </span>
+    let item = scope.get("chat")[index];
 
-          <span className="pl-2 text-gray-400">{ts && relTime(ts)}</span>
-        </p>
-        <p className="text-gray-900 group-hover:text-gray-800">{msg.text}</p>
-          <p id={scope.get('chat').index} className="flex" style={{'lineHeight': '3.5'}}>
-              <span>{likeIcon}</span>
-              <span className="pl-2">{Object.values(item.likes).reduce((a,b)=>a+b,0)}</span>
-          </p>
-      </div>
-    </div>);
+    return (
+        <div className="flex items-start my-2 shadow p-8">
+            <div className="flex-shrink-0">{avatarImage}</div>
+            <div className="ml-3 text-sm">
+                <p>
+                    <span className="font-semibold text-gray-900 group-hover:text-gray-800">
+                        {msg.sender.name}
+                    </span>
+                    <span className="pl-2 text-gray-400">{ts && relTime(ts)}</span>
+                </p>
+                <p className="text-gray-900 group-hover:text-gray-800">{msg.text}</p>
+            </div>
+        </div>
+    );
 }
 
 
