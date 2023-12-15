@@ -1,9 +1,10 @@
-import { usePlayer } from "@empirica/core/player/classic/react";
+import { usePlayer, useStage } from "@empirica/core/player/classic/react";
 import { Loading } from "@empirica/core/player/react";
 import React, {useState, useRef, useEffect } from "react";
 
 export function Chat({ scope, attribute, loading}) {
     const player = usePlayer();
+    const stage = useStage();
     if (!scope || !player) {
         return <LoadingComp />;
     }
@@ -21,13 +22,13 @@ export function Chat({ scope, attribute, loading}) {
     };
     let msgs = scope.getAttribute(attribute)?.items || [];
     return (<div className="h-5/6 w-100 justify-center flex flex-col">
-      <MessagesPanel scope={scope} msgs={msgs} player={player}/>
+      <MessagesPanel scope={scope} msgs={msgs} stage={stage} player={player}/>
       <InputBox onNewMessage={handleNewMessage}/>
     </div>);
 }
 
 function MessagesPanel(props) {
-    let {player, scope, msgs } = props;
+    let {player, stage, scope, msgs } = props;
     const scroller = useRef(null);
     const [msgCount, setMsgCount] = useState(0);
     useEffect(() => {
@@ -59,6 +60,8 @@ function MessagesPanel(props) {
       </div>);
     }
 
+    const name = stage.get('name')
+    console.log(name)
     return (
         <div className="h-full overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
             {msgs.filter(
