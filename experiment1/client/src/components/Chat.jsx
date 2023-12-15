@@ -60,16 +60,25 @@ function MessagesPanel(props) {
       </div>);
     }
 
-    const name = stage.get('name')
-    console.log(name)
-    return (
-        <div className="h-full overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
-            {msgs.filter(
-                (msg) => msg.value.recipient == player.id
-            ).map(
-                (msg, i) => (<MessageComp key={msg.id} index = {i} player={player} scope={scope} attribute={msg}/>))}
-    </div>);
+const name = stage.get('name');
+console.log(name);
+
+// Filter messages based on stage
+const filtered_message = stage.name === 'send'
+    ? msgs.filter((msg) => msg.value.recipient === player.id)
+    : msgs.filter((msg) => msg.value.recipient !== player.id);
+
+return (
+    <div className="h-full overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
+        {filtered_message.map((msg, i) => (
+            <MessageComp key={msg.id} index={i} player={player} scope={scope} attribute={msg} />
+        ))}
+    </div>
+);
+
 }
+
+
 
 //*
 // MessageComp is the component showing an individual message
