@@ -8,7 +8,8 @@ Empirica.onGameStart(({ game }) => {
       name: "Send message",
       task: "Chat"
     });
-    round.addStage({ name: "Chat -- phase 1", duration: 1000000 });
+    round.addStage({ name: "send", duration: 30 });
+    round.addStage({ name: "observe", duration: 30 });
   });
 })
 
@@ -17,7 +18,8 @@ Empirica.onRoundStart(({ round }) => {
   console.log(players)
   players.forEach((player, i) => {
     const otherPlayers = players.filter(p => p.id != player.id)
-    console.log('setting player id', player.id, 'recipient to ', otherPlayers[(i + round.get('idx')) % otherPlayers.length].id)
+    console.log('setting player id', player.id, 'recipient to ',
+                otherPlayers[(i + round.get('idx')) % otherPlayers.length].id)
     player.set('recipient', otherPlayers[(i + round.get('idx')) % otherPlayers.length].id);
   });
 });
