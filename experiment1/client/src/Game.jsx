@@ -11,7 +11,7 @@ export function Game() {
 
   return (
     <div className="h-full w-full flex">
-      <div className="h-full w-full flex">
+      <div className="h-full w-full flex border-100 border-white">
         <World />
       </div>
       <div className="h-full w-full flex flex-col">
