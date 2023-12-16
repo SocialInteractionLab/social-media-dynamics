@@ -64,10 +64,9 @@ const name = stage.get('name');
 console.log(name);
 
 // Filter messages based on stage
-const filtered_message = stage.name === 'send'
-    ? msgs.filter((msg) => msg.value.recipient === player.id)
-    : msgs.filter((msg) => msg.value.recipient !== player.id);
-
+const filtered_message = name === 'send'
+     ? msgs.filter((msg) => msg.value.recipient !== player.id)
+        : msgs.filter((msg) => msg.value.recipient === player.id)
 return (
     <div className="h-full overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
         {filtered_message.map((msg, i) => (
