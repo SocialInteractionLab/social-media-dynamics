@@ -1,0 +1,6 @@
+.DS_Store
+.idea
+*.log
+tmp/
+server/dist/index*
+.empirica/local
