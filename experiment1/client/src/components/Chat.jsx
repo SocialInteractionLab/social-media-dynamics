@@ -1,9 +1,10 @@
-import { usePlayer, useStage } from "@empirica/core/player/classic/react";
+import { usePlayer, useStage, useRound } from "@empirica/core/player/classic/react";
 import { Loading } from "@empirica/core/player/react";
 import React, {useState, useRef, useEffect } from "react";
 
 export function Chat({ scope, attribute, loading}) {
     const player = usePlayer();
+    const round = useRound();
     const stage = useStage();
     if (!scope || !player) {
         return <LoadingComp />;
@@ -12,6 +13,7 @@ export function Chat({ scope, attribute, loading}) {
         scope.append(attribute, {
             text,
             likes : {},
+            round: round.get('idx'),
             recipient: player.get("recipient"),
             sender: {
                 id: player.id,
@@ -21,16 +23,21 @@ export function Chat({ scope, attribute, loading}) {
         });
     };
     let msgs = scope.getAttribute(attribute)?.items || [];
-    return (<div className="h-5/6 w-100 justify-center flex flex-col">
-      <MessagesPanel scope={scope} msgs={msgs} stage={stage} player={player}/>
-      <InputBox onNewMessage={handleNewMessage}/>
-    </div>);
+    return (
+        <div className="h-5/6 w-100 justify-center flex flex-col">
+            <MessagesPanel scope={scope} msgs={msgs} stage={stage} player={player}/>
+        </div>
+    );
 }
 
 function MessagesPanel(props) {
     let {player, stage, scope, msgs } = props;
     const scroller = useRef(null);
     const [msgCount, setMsgCount] = useState(0);
+    const msgsFiltered = stage.get('name') === 'send'
+          ? msgs.filter((msg) => msg.value.sender.id === player.id)
+          : msgs.filter((msg) => msg.value.recipient === player.id)
+
     useEffect(() => {
         if (!scroller.current) {
             return;
@@ -42,7 +49,7 @@ function MessagesPanel(props) {
     }, [scroller, props, msgCount]);
 
     // Handle case before any messages are sent
-    if (msgs.length === 0) {
+    if (msgsFiltered.length === 0) {
         return (<div className="h-full w-full flex justify-center items-center">
         <div className="flex flex-col justify-center items-center w-2/3 space-y-2">
           <div className="w-24 h-24 text-gray-200">
@@ -51,33 +58,22 @@ function MessagesPanel(props) {
             </svg>
           </div>
 
-          <h4 className="text-gray-700 font-semibold">No chat yet</h4>
-
           <p className="text-gray-500 text-center">
-            Send a message to start the conversation.
+            Send a message to your partner!
           </p>
         </div>
       </div>);
     }
 
-const name = stage.get('name');
-console.log(name);
-
-// Filter messages based on stage
-const filtered_message = name === 'send'
-     ? msgs.filter((msg) => msg.value.recipient !== player.id)
-        : msgs.filter((msg) => msg.value.recipient === player.id)
-return (
-    <div className="h-full overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
-        {filtered_message.map((msg, i) => (
-            <MessageComp key={msg.id} index={i} player={player} scope={scope} attribute={msg} />
-        ))}
-    </div>
-);
-
+    // Filter messages based on stage
+    return (
+        <div className="h-full overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
+            {msgsFiltered.map((msg, i) => (
+                <MessageComp key={msg.id} index={i} player={player} scope={scope} attribute={msg} />
+            ))}
+        </div>
+    );
 }
-
-
 
 //*
 // MessageComp is the component showing an individual message
@@ -108,7 +104,9 @@ function MessageComp(props) {
             <div className="ml-3 text-sm">
                 <p>
                     <span className="font-semibold text-gray-900 group-hover:text-gray-800">
-                        {msg.sender.name}
+                        {(msg.sender.id == player.id ? 'you ' : 'your friend ')
+                         +
+                         (' (round ' + msg.round + ')')}
                     </span>
                     <span className="pl-2 text-gray-400">{ts && relTime(ts)}</span>
                 </p>
