@@ -24,19 +24,27 @@ export function Chat({ scope, attribute, loading}) {
     };
     let msgs = scope.getAttribute(attribute)?.items || [];
     return (
-        <div className="h-5/6 w-100 justify-center flex flex-col">
-            <MessagesPanel scope={scope} msgs={msgs} stage={stage} player={player}/>
+        <div className="w-100 pb-1/5 pt-1/10 justify-center items-center flex flex-col">
+            <MessagesPanel scope={scope} msgs={msgs} stage={stage}
+                           round={round} player={player}/>
+            {
+             stage.get("name") == 'send' ?
+             <InputBox onNewMessage={handleNewMessage}/> :
+             undefined // TODO: add response slider
+            }
         </div>
     );
 }
 
 function MessagesPanel(props) {
-    let {player, stage, scope, msgs } = props;
+    let {player, stage, round, scope, msgs } = props;
     const scroller = useRef(null);
     const [msgCount, setMsgCount] = useState(0);
-    const msgsFiltered = stage.get('name') === 'send'
-          ? msgs.filter((msg) => msg.value.sender.id === player.id)
-          : msgs.filter((msg) => msg.value.recipient === player.id)
+    const msgsFiltered = (
+        stage.get('name') === 'send' ?
+        msgs.filter((msg) => msg.value.sender.id === player.id) :
+        msgs.filter((msg) => msg.value.recipient === player.id)
+    ).filter(msg => msg.value.round == round.get('idx'));
 
     useEffect(() => {
         if (!scroller.current) {
@@ -48,7 +56,7 @@ function MessagesPanel(props) {
         }
     }, [scroller, props, msgCount]);
 
-    // Handle case before any messages are sent
+    // Handle case before any messages are sent this round
     if (msgsFiltered.length === 0) {
         return (<div className="h-full w-full flex justify-center items-center">
         <div className="flex flex-col justify-center items-center w-2/3 space-y-2">
@@ -59,18 +67,25 @@ function MessagesPanel(props) {
           </div>
 
           <p className="text-gray-500 text-center">
-            Send a message to your partner!
+              {stage.get("name") == 'send' ?
+               "Please send a message to your new partner about the wildlife population!" :
+               "You haven't received any messages this round..."}
           </p>
         </div>
-      </div>);
+    </div>);
     }
 
     // Filter messages based on stage
     return (
-        <div className="h-full overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
-            {msgsFiltered.map((msg, i) => (
-                <MessageComp key={msg.id} index={i} player={player} scope={scope} attribute={msg} />
-            ))}
+        <div className="h-full w-full items-center overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
+        {
+            stage.get('name') == 'send' ?
+            <h2> Messages <b>sent</b>:</h2> :
+            <h2>Messages <b>received</b>: </h2>
+        }
+        {msgsFiltered.map((msg, i) => (
+            <MessageComp key={msg.id} index={i} player={player} scope={scope} attribute={msg} />
+        ))}
         </div>
     );
 }
@@ -104,9 +119,7 @@ function MessageComp(props) {
             <div className="ml-3 text-sm">
                 <p>
                     <span className="font-semibold text-gray-900 group-hover:text-gray-800">
-                        {(msg.sender.id == player.id ? 'you ' : 'your friend ')
-                         +
-                         (' (round ' + msg.round + ')')}
+                        {('round ' + msg.round)}
                     </span>
                     <span className="pl-2 text-gray-400">{ts && relTime(ts)}</span>
                 </p>
