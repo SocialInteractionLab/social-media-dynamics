@@ -10,13 +10,15 @@ export function Game() {
   const { playerCount } = game.get("treatment");
 
   return (
-    <div className="h-full w-full flex">
-      <div className="h-full w-full flex border-100 border-white">
-        <World />
-      </div>
-      <div className="h-full w-full flex flex-col">
+    <div className="h-full w-full flex flex-col">
+      <div className="w-full flex">
         <Profile />
-        <div className="h-full flex items-center justify-center">
+      </div>
+      <div className="h-full w-full flex flex-row">
+        <div className="h-full w-full flex items-center justify-center">
+          <World />
+        </div>
+        <div className="h-full w-full flex items-center justify-center">
           <Chat scope={game} attribute="chat" />
         </div>
       </div>
