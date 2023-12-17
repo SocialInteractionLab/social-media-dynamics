@@ -1,4 +1,4 @@
-import { usePlayer, useStage, useRound } from "@empirica/core/player/classic/react";
+import { Slider,  usePlayer, useStage, useRound } from "@empirica/core/player/classic/react";
 import { Loading } from "@empirica/core/player/react";
 import React, {useState, useRef, useEffect } from "react";
 
@@ -22,16 +22,27 @@ export function Chat({ scope, attribute, loading}) {
             },
         });
     };
+    const handleSlider = (e) => {
+        player.set("guess", e.target.valueAsNumber)
+    }
+
     let msgs = scope.getAttribute(attribute)?.items || [];
     return (
-        <div className="w-100 pb-1/5 pt-1/10 justify-center items-center flex flex-col">
+        <div className="w-100 h-full pb-1/10 pt-1/10 absolute justify-center items-center flex flex-col">
+        {
+            stage.get('name') == 'send' ?
+            <h2 className="align-left"> Messages <b>sent</b>:</h2> :
+            <h2>Messages <b>received</b>: </h2>
+        }
             <MessagesPanel scope={scope} msgs={msgs} stage={stage}
                            round={round} player={player}/>
-            {
-             stage.get("name") == 'send' ?
+        {
+            stage.get("name") == 'send' ?
              <InputBox onNewMessage={handleNewMessage}/> :
-             undefined // TODO: add response slider
-            }
+             <Slider className="flex flex-col absolute" value={player.get("guess")}
+                     onChange={handleSlider}
+                     max={100}/>
+        }
         </div>
     );
 }
@@ -78,11 +89,6 @@ function MessagesPanel(props) {
     // Filter messages based on stage
     return (
         <div className="h-full w-full items-center overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
-        {
-            stage.get('name') == 'send' ?
-            <h2> Messages <b>sent</b>:</h2> :
-            <h2>Messages <b>received</b>: </h2>
-        }
         {msgsFiltered.map((msg, i) => (
             <MessageComp key={msg.id} index={i} player={player} scope={scope} attribute={msg} />
         ))}
@@ -164,7 +170,7 @@ function InputBox({ onNewMessage }) {
         resize(e);
     };
     return (
-      <form className="p-2 flex items-strech gap-2 border-t" onSubmit={handleSubmit}>
+      <form className="p-2 w-full flex items-strech gap-2 border-t" onSubmit={handleSubmit}>
         <textarea name="message" id="message" rows={1}
                   className="peer resize-none bg-transparent block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-300 focus:ring-2 focus:ring-inset focus:ring-empirica-500 sm:text-sm sm:leading-6"
                   placeholder="Say something" onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} value={text} onChange={(e) => setText(e.target.value)}
