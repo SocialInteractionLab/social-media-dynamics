@@ -2,10 +2,15 @@ import { ClassicListenersCollector } from "@empirica/core/admin/classic";
 export const Empirica = new ClassicListenersCollector();
 
 Empirica.onGameStart(({ game }) => {
-  [0,1,2,3,4,5].forEach(i => {
+
+  game.players.forEach((player, i) => {
+    player.set("name", "player " + i);
+  });
+
+  [1,2,3,4,5,6].forEach(i => {
     const round = game.addRound({
       idx: i,
-      name: "Send message",
+      name: "Round " + i + ' / 6',
       task: "Chat"
     });
     round.addStage({ name: "send", duration: 30 });
@@ -15,7 +20,6 @@ Empirica.onGameStart(({ game }) => {
 
 Empirica.onRoundStart(({ round }) => {
   const players = round.currentGame.players;
-  console.log(players)
   players.forEach((player, i) => {
     const otherPlayers = players.filter(p => p.id != player.id)
     console.log('setting player id', player.id, 'recipient to ',
@@ -24,9 +28,7 @@ Empirica.onRoundStart(({ round }) => {
   });
 });
 
-
 Empirica.onStageStart(({ stage }) => {});
-
 
 Empirica.onStageEnded(({ stage }) => {});
 
