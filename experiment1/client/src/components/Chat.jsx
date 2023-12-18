@@ -1,7 +1,15 @@
 import { Slider,  usePlayer, useStage, useRound } from "@empirica/core/player/classic/react";
 import { Loading } from "@empirica/core/player/react";
+import RangeSlider from 'react-range-slider-input';
+import 'react-range-slider-input/dist/style.css';
+
 import React, {useState, useRef, useEffect } from "react";
 
+export default function () {
+    return (
+        <RangeSlider />
+    );
+}
 export function Chat({ scope, attribute, loading}) {
     const player = usePlayer();
     const round = useRound();
