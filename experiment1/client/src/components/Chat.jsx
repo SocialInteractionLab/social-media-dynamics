@@ -1,15 +1,11 @@
 import { Slider,  usePlayer, useStage, useRound } from "@empirica/core/player/classic/react";
 import { Loading } from "@empirica/core/player/react";
+import React, {useState, useRef, useEffect } from "react";
+
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 
-import React, {useState, useRef, useEffect } from "react";
 
-export default function () {
-    return (
-        <RangeSlider />
-    );
-}
 export function Chat({ scope, attribute, loading}) {
     const player = usePlayer();
     const round = useRound();
@@ -47,13 +43,16 @@ export function Chat({ scope, attribute, loading}) {
         {
             stage.get("name") == 'send' ?
              <InputBox onNewMessage={handleNewMessage}/> :
-             <Slider className="flex flex-col absolute" value={player.get("guess")}
-                     onChange={handleSlider}
+             <RangeSlider className="flex flex-col absolute" value={player.get("guess")}
+                     onThumbDragEnd={handleSlider}
                      max={100}/>
         }
         </div>
     );
 }
+
+
+
 
 function MessagesPanel(props) {
     let {player, stage, round, scope, msgs } = props;
