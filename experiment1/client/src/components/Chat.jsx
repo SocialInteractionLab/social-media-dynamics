@@ -43,9 +43,17 @@ export function Chat({ scope, attribute, loading}) {
         {
             stage.get("name") == 'send' ?
              <InputBox onNewMessage={handleNewMessage}/> :
-             <RangeSlider className="flex flex-col absolute" value={player.get("guess")}
-                     onThumbDragEnd={handleSlider}
-                     max={100}/>
+               <div>
+                  <h2 className="align-center" style={{ marginBottom: '20px' }}>What proportion of the population are rabbits?</h2>
+                  <div className="flex flex-row justify-between items-center">
+                   <b style={{ marginRight: '10px' }}>0</b>
+                   <RangeSlider className="flex flex-col" value={player.get("guess")} onThumbDragEnd={handleSlider} max={100} />
+                   <b style={{ marginLeft: '10px' }}>100</b>
+                  </div>
+    
+  </div>
+             
+
         }
         </div>
     );
