@@ -1,8 +1,7 @@
 import React from "react";
 
 export function World() {
-  const generateRandomEmoji = () => {
-    const emojis = ['🐇', '🐿️']; 
+  const generateRandomEmoji = () => { 
     const isRabbit = Math.random() < 0.5;
     return isRabbit ? '🐇' : '🐿️';
   };
