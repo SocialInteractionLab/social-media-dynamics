@@ -7,10 +7,11 @@ export function World() {
     return isRabbit ? '🐇' : '🐿️';
   };
 
+
   return (
-    <div style={{ backgroundColor: '#268b07', width: '500px', height: '500px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <div  style={{ backgroundImage: 'url("/freepik.png")', backgroundColor: '#268b07', width: '90%', height: '90%', borderRadius: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       {[...Array(8)].map((_, index) => (
-        <span key={index} style={{ fontSize: '24px' }}>
+        <span key={index} style={{ fontSize: '40px' }}>
           {generateRandomEmoji()}
         </span>
       ))}
