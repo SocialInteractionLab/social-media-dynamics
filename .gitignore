@@ -2,5 +2,6 @@
 .idea
 *.log
 tmp/
-server/dist/index*
+node_modules
+experiment1/server/dist/index.*
 .empirica/local
