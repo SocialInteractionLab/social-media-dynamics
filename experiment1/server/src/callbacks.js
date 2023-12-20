@@ -2,9 +2,10 @@ import { ClassicListenersCollector } from "@empirica/core/admin/classic";
 export const Empirica = new ClassicListenersCollector();
 
 Empirica.onGameStart(({ game }) => {
-
+  const critters = {}
   game.players.forEach((player, i) => {
     player.set("name", "player " + i);
+    player.set("critters", {nRabbits: 3, nSquirrels: 1})
   });
 
   [1,2,3,4,5,6].forEach(i => {
