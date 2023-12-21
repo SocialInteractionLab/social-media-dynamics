@@ -7,16 +7,8 @@ export function World() {
   const player = usePlayer();
 
   // turn critter distribution into emoji arrays
-  const critterDistribution = player.get('critters')
-  const rabbits = _.repeat('🐇 ', critterDistribution['nRabbits']).split(' ')
-  const squirrels = _.repeat('🐿️ ', critterDistribution['nSquirrels']).split(' ')
-
-  // create spaces with roughly 50% probability
-  const nSpaces = 1/2 * _.sum(_.values(critterDistribution))
-  const spaces = _.repeat('\u00A0 \u00A0 \u00A0 \u00A0', nSpaces)
-
-  // scramble the order
-  const emojiArray = _.shuffle(_.concat(rabbits, squirrels, spaces));
+  const critterDistribution = player.get('emojiArray')
+ 
 
   return (
     <div style={{
@@ -26,7 +18,7 @@ export function World() {
            justifyContent: 'center', alignItems: 'center'}}>
       {[...Array(1)].map((_, index) => (
         <span key={index} style={{ fontSize: '70px' }}>
-          {emojiArray}
+          {critterDistribution}
         </span>
       ))}
     </div>
