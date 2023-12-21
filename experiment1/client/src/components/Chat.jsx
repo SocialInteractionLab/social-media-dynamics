@@ -2,8 +2,8 @@ import { Slider,  usePlayer, useStage, useRound } from "@empirica/core/player/cl
 import { Loading } from "@empirica/core/player/react";
 import React, {useState, useRef, useEffect } from "react";
 
-import RangeSlider from 'react-range-slider-input';
-import 'react-range-slider-input/dist/style.css';
+//import RangeSlider from 'react-range-slider-input';
+//import 'react-range-slider-input/dist/style.css';
 
 
 export function Chat({ scope, attribute, loading}) {
@@ -47,8 +47,8 @@ export function Chat({ scope, attribute, loading}) {
                   <h2 className="align-center" style={{ marginBottom: '20px' }}>What proportion of the population are rabbits?</h2>
                   <div className="flex flex-row justify-between items-center">
                    <b style={{ marginRight: '10px' }}>0</b>
-                   <RangeSlider className="flex flex-col" value={player.get("guess")} onThumbDragEnd={handleSlider} max={100} 
-                   rangeStyle={{ background: '#ddd' }}/>
+                   <Slider className="flex flex-col" value={player.get("guess")} onChange={handleSlider} max={100} 
+                   />
                    <b style={{ marginLeft: '10px' }}>100</b> 
                   </div>
     
