@@ -1,4 +1,4 @@
-import { Slider,  usePlayer, useStage, useRound } from "@empirica/core/player/classic/react";
+import {usePlayer, useStage, useRound } from "@empirica/core/player/classic/react";
 import { Loading } from "@empirica/core/player/react";
 import React, {useState, useRef, useEffect } from "react";
 import { Opinion } from "./Opinion";
@@ -44,7 +44,7 @@ export function Chat({ scope, attribute, loading}) {
         {
             // If the stage is in send state, show the input box, else show slider/text feedback
             stage.get("name") == 'send' ?
-             <InputBox onNewMessage={handleNewMessage}/> : <Opinion toggle={0}/>
+             <InputBox onNewMessage={handleNewMessage}/> : <Opinion toggle={0} scope = {scope} attribute = {attribute}/>
         }
         </div>
     );
