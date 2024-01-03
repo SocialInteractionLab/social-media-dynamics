@@ -1,6 +1,7 @@
 import { Slider,  usePlayer, useStage, useRound } from "@empirica/core/player/classic/react";
 import { Loading } from "@empirica/core/player/react";
 import React, {useState, useRef, useEffect } from "react";
+import { Opinion } from "./Opinion";
 
 //import RangeSlider from 'react-range-slider-input';
 //import 'react-range-slider-input/dist/style.css';
@@ -41,20 +42,9 @@ export function Chat({ scope, attribute, loading}) {
             <MessagesPanel scope={scope} msgs={msgs} stage={stage}
                            round={round} player={player}/>
         {
+            // If the stage is in send state, show the input box, else show slider/text feedback
             stage.get("name") == 'send' ?
-             <InputBox onNewMessage={handleNewMessage}/> :
-               <div>
-                  <h2 className="align-center" style={{ marginBottom: '20px' }}>What proportion of the population are rabbits?</h2>
-                  <div className="flex flex-row justify-between items-center">
-                   <b style={{ marginRight: '10px' }}>0</b>
-                   <Slider className="flex flex-col" value={player.get("guess")} onChange={handleSlider} max={100} 
-                   />
-                   <b style={{ marginLeft: '10px' }}>100</b> 
-                  </div>
-    
-  </div>
-             
-
+             <InputBox onNewMessage={handleNewMessage}/> : <Opinion toggle={0}/>
         }
         </div>
     );
