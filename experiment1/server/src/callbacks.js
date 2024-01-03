@@ -5,60 +5,53 @@ import _ from "lodash";
 
 Empirica.onGameStart(({ game }) => {
 
+const trueP = 0.7 //was 'treatment.trueP' in Robert's pseudocode
+const binomial = (p, n) => {
+  const flips = _.range(n).map(i => {
+    return Math.random() < p
+  })
+  return _.sum(flips);
+} 
 
-// generate a normal distribution between 0-8 with a mean of 4 
-function generateRatioDistribution(mean, stdDev, range) {
-  const values = [];
+const result = game.players.map(player => {
+  const n = Math.floor(Math.random() * 9);
+  const nSquirrels = binomial(trueP, n)
+return {nSquirrels, nRabbits: n - nSquirrels}
 
-  for (let i = 0; i < range.length; i++) {
-    const ratio = range[i];
-    const probability = Math.exp(-(Math.pow(ratio - mean, 2) / (2 * Math.pow(stdDev, 2)))) / (stdDev * Math.sqrt(2 * Math.PI));
-    values.push({ x: ratio, y: probability });
-  }
+})
+const s = _.range(1000).map(i =>  binomial(trueP, 3))
+console.log('s',_.countBy(s))
 
-  return values;
-}
-
-const meanRatio = 4;  
-const stdDevRatio = 2;  
-
-const rangeRatio = Array.from({ length: 9 }, (_, i) => i); 
-
-// Generate distribution for the ratio of squirrels to rabbits
-const distributionRatio = generateRatioDistribution(meanRatio, stdDevRatio, rangeRatio);
-
-function sampleRandomRatio(distribution) {
-  const rand = Math.random();
-  let cumulativeProbability = 0;
-
-  for (const entry of distribution) {
-    cumulativeProbability += entry.y;
-    if (rand <= cumulativeProbability) {
-      return entry.x;
-    }
-  }
-
-  // In case of rounding errors, return the last value
-  return distribution[distribution.length - 1].x;
-}
-
+const nRabbits = result[0].nRabbits;
+const nSquirrels = result[0].nSquirrels;
+ console.log('nRabbits:', nRabbits);
+  console.log('nSquirrels:', nSquirrels);
 
 game.players.forEach((player,i) => {
-  const nrabbits = Array.from({ length: 1 }, () => sampleRandomRatio(distributionRatio))[0];
-  const nsquirrels = 8 - nrabbits;
 
-const rabbits = _.repeat('🐇 ', nrabbits).split(' ');
-const squirrels = _.repeat('🐿️ ', nsquirrels).split(' ');
-
-console.log('nR:', nrabbits);
-  console.log('nS:', nsquirrels);
+//convert to emojis
+  const rabbits = _.repeat('🐇 ', nRabbits).split(' ');
+  const squirrels = _.repeat('🐿️ ', nSquirrels).split(' ');
 
  // create spaces with roughly 50% probability
-  const nSpaces = 1/2 * [nrabbits+nsquirrels]
+  const nSpaces = 1/2 * [nRabbits+nSquirrels]
   const spaces = _.repeat('\u00A0 \u00A0 \u00A0 \u00A0', nSpaces)
 
-  // scramble the order
-  const emojiArray = _.shuffle(_.concat(rabbits, squirrels, spaces));
+// hide some critters for realism 
+  //const maskCritters=_.compact(_.shuffle(_.concat(rabbits, squirrels)));
+ // const numToRemove = _.random(0, maskCritters.length);
+    //console.log('hidden critters:', numToRemove);
+
+  // console.log('mask critters:', maskCritters);
+
+ //const hiddenCritters = maskCritters.slice(0, maskCritters.length - numToRemove);
+// console.log('hidden critters:', hiddenCritters);
+
+//scramble spaces and critters
+  //const emojiArray = _.shuffle(_.concat(hiddenCritters, spaces));
+
+  //instead of masking them, just scramble
+const emojiArray = _.shuffle(_.concat(rabbits, squirrels, spaces));
 
     player.set("name", "player " + i);
     player.set("emojiArray", emojiArray)
