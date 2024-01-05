@@ -18,9 +18,14 @@ treatments:
       desc: Two-player Game
       factors:
         playerCount: 2
-    - name: "4"
+    - name: "4-Slider"
       factors:
         playerCount: 4
+        opinion: "slider"
+    - name: "4-text"
+      factors:
+        playerCount: 4
+        opinion: "text"  
     - name: "8"
       factors:
         playerCount: 8

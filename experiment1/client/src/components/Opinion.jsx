@@ -1,10 +1,14 @@
 import React from "react";
 import {InputBox} from "./InputBox";
-import {Slider, usePlayer, useRound } from "@empirica/core/player/classic/react";
+import {Slider, usePlayer, useRound, useGame } from "@empirica/core/player/classic/react";
 
-export function Opinion({toggle, scope, attribute}){
+export function Opinion({ scope, attribute}){
     const round = useRound();
     const player = usePlayer();
+    const game = useGame();
+
+    //set component to appropiate opinion input based on treatment
+    const toggle = game.get("treatment")["opinion"] === "slider" ? 1 : 0 ;
 
     //method for input box sends data of user's opinion to Empirica's mongoDB
     const handleNewMessage = (text) => {
