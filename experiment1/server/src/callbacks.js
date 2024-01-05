@@ -4,6 +4,7 @@ import _ from "lodash";
 
 Empirica.onGameStart(({ game }) => {
   const trueP = 0.7; //was 'treatment.trueP' in Robert's pseudocode
+
   const binomial = (p, n) => {
     const flips = _.range(n).map((i) => {
       return Math.random() < p;
@@ -11,45 +12,27 @@ Empirica.onGameStart(({ game }) => {
     return _.sum(flips);
   };
 
-  const result = game.players.map((player) => {
+  game.players.forEach((player, i) => {
     const n = Math.floor(Math.random() * 9);
     const nSquirrels = binomial(trueP, n);
-    return { nSquirrels, nRabbits: n - nSquirrels };
-  });
-  const s = _.range(1000).map((i) => binomial(trueP, 3));
-  console.log("s", _.countBy(s));
+    const nRabbits = n - nSquirrels;
 
-  const nRabbits = result[0].nRabbits;
-  const nSquirrels = result[0].nSquirrels;
-  console.log("nRabbits:", nRabbits);
-  console.log("nSquirrels:", nSquirrels);
+    console.log(
+      `Player ${i + 1}: nRabbits - ${nRabbits}, nSquirrels - ${nSquirrels}`
+    );
 
-  game.players.forEach((player, i) => {
-    //convert to emojis
+    // Convert to emojis
     const rabbits = _.repeat("🐇 ", nRabbits).split(" ");
     const squirrels = _.repeat("🐿️ ", nSquirrels).split(" ");
 
-    // create spaces with roughly 50% probability
-    const nSpaces = (1 / 2) * [nRabbits + nSquirrels];
+    // Create spaces with roughly 50% probability
+    const nSpaces = (1 / 2) * (nRabbits + nSquirrels);
     const spaces = _.repeat("\u00A0 \u00A0 \u00A0 \u00A0", nSpaces);
 
-    // hide some critters for realism
-    //const maskCritters=_.compact(_.shuffle(_.concat(rabbits, squirrels)));
-    // const numToRemove = _.random(0, maskCritters.length);
-    //console.log('hidden critters:', numToRemove);
-
-    // console.log('mask critters:', maskCritters);
-
-    //const hiddenCritters = maskCritters.slice(0, maskCritters.length - numToRemove);
-    // console.log('hidden critters:', hiddenCritters);
-
-    //scramble spaces and critters
-    //const emojiArray = _.shuffle(_.concat(hiddenCritters, spaces));
-
-    //instead of masking them, just scramble
+    // Scramble spaces and critters
     const emojiArray = _.shuffle(_.concat(rabbits, squirrels, spaces));
 
-    player.set("name", "player " + i);
+    player.set("name", "player " + (i + 1));
     player.set("emojiArray", emojiArray);
   });
 
