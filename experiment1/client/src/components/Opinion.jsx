@@ -27,11 +27,11 @@ export function Opinion({ scope, attribute}){
         player.set("guess", e.target.valueAsNumber)
     }
     
-    //return the slider if toggle is 0 else return a an input box component
+    //return opinion input based on treatment
     return(
         <div>
         {
-        toggle == 0 ?( 
+        toggle == 1 ?( 
             <div>
             <h2 className="align-center" style={{ marginBottom: '20px' }}>What proportion of the population are rabbits?</h2>
                 <div className="flex flex-row justify-between items-center">
