@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 import reactRefresh from "@vitejs/plugin-react-refresh";
 import { resolve } from "path";
 import { defineConfig, searchForWorkspaceRoot } from "vite";
@@ -26,19 +27,19 @@ export default defineConfig({
   },
   build: {
     minify: false,
+    sourcemap: true
   },
   clearScreen: false,
-  plugins: [
-    restart({
-      restart: [
-        "./uno.config.cjs",
-        "./node_modules/@empirica/core/dist/**/*.{js,ts,jsx,tsx,css}",
-        "./node_modules/@empirica/core/assets/**/*.css",
-      ],
-    }),
-    UnoCSS(),
-    reactRefresh(),
-  ],
+  plugins: [restart({
+    restart: [
+      "./uno.config.cjs",
+      "./node_modules/@empirica/core/dist/**/*.{js,ts,jsx,tsx,css}",
+      "./node_modules/@empirica/core/assets/**/*.css",
+    ],
+  }), UnoCSS(), reactRefresh(), sentryVitePlugin({
+    org: "social-interaction-lab",
+    project: "social-media-dynamics"
+  })],
   define: {
     "process.env": {
       NODE_ENV: process.env.NODE_ENV || "development",
