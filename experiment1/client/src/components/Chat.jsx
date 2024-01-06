@@ -45,11 +45,14 @@ export function Chat({ scope, attribute, loading}) {
             stage.get("name") == 'send' ?
              <InputBox onNewMessage={handleNewMessage} buttonStyles='w-9 h-9 p-2 text-sm'/> : <Opinion toggle={1} scope = {scope} attribute = {attribute}/>
         }
+        <Test/>
         </div>
     );
+} 
+function Test(){
+    throw new Error('Sentry test error');
+    return <button onClick={() => methodDoesNotExist()}>Break the world</button>;
 }
-
-
 
 
 function MessagesPanel(props) {
