@@ -26,7 +26,6 @@ export function Opinion({ scope, attribute}){
 
     const handleSlider = (event, value) => {
         player.set("guess", value)
-        console.log(player.get("guess"));
     }
     
     //return opinion input based on treatment
