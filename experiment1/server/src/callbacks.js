@@ -3,30 +3,31 @@ export const Empirica = new ClassicListenersCollector();
 import _ from "lodash";
 
 Empirica.onGameStart(({ game }) => {
+  const trueP = 0.7; //was 'treatment.trueP' in Robert's pseudocode
 
-  const trueP = 0.7 //was 'treatment.trueP' in Robert's pseudocode
-  
   const binomial = (p, n) => {
-    const flips = _.range(n).map(i => {
-      return Math.random() < p
-    })
+    const flips = _.range(n).map((i) => {
+      return Math.random() < p;
+    });
     return _.sum(flips);
-  }
+  };
 
   game.players.forEach((player, i) => {
     const n = Math.floor(Math.random() * 9);
     const nSquirrels = binomial(trueP, n);
     const nRabbits = n - nSquirrels;
 
-    console.log(`Player ${i + 1}: nRabbits - ${nRabbits}, nSquirrels - ${nSquirrels}`);
+    console.log(
+      `Player ${i + 1}: nRabbits - ${nRabbits}, nSquirrels - ${nSquirrels}`
+    );
 
     // Convert to emojis
-    const rabbits = _.repeat('🐇 ', nRabbits).split(' ');
-    const squirrels = _.repeat('🐿️ ', nSquirrels).split(' ');
+    const rabbits = _.repeat("🐇 ", nRabbits).split(" ");
+    const squirrels = _.repeat("🐿️ ", nSquirrels).split(" ");
 
     // Create spaces with roughly 50% probability
-    const nSpaces = 1/2 * (nRabbits + nSquirrels);
-    const spaces = _.repeat('\u00A0 \u00A0 \u00A0 \u00A0', nSpaces);
+    const nSpaces = (1 / 2) * (nRabbits + nSquirrels);
+    const spaces = _.repeat("\u00A0 \u00A0 \u00A0 \u00A0", nSpaces);
 
     // Scramble spaces and critters
     const emojiArray = _.shuffle(_.concat(rabbits, squirrels, spaces));
@@ -35,28 +36,31 @@ Empirica.onGameStart(({ game }) => {
     player.set("emojiArray", emojiArray);
   });
 
-
-
-
-
-  [1,2,3,4,5,6].forEach(i => {
+  [1, 2, 3, 4, 5, 6].forEach((i) => {
     const round = game.addRound({
       idx: i,
-      name: "Round " + i + ' / 6',
-      task: "Chat"
+      name: "Round " + i + " / 6",
+      task: "Chat",
     });
     round.addStage({ name: "send", duration: 30 });
     round.addStage({ name: "observe", duration: 300000 });
   });
-})
+});
 
 Empirica.onRoundStart(({ round }) => {
   const players = round.currentGame.players;
   players.forEach((player, i) => {
-    const otherPlayers = players.filter(p => p.id != player.id)
-    console.log('setting player id', player.id, 'recipient to ',
-                otherPlayers[(i + round.get('idx')) % otherPlayers.length].id)
-    player.set('recipient', otherPlayers[(i + round.get('idx')) % otherPlayers.length].id);
+    const otherPlayers = players.filter((p) => p.id != player.id);
+    console.log(
+      "setting player id",
+      player.id,
+      "recipient to ",
+      otherPlayers[(i + round.get("idx")) % otherPlayers.length].id
+    );
+    player.set(
+      "recipient",
+      otherPlayers[(i + round.get("idx")) % otherPlayers.length].id
+    );
   });
 });
 
