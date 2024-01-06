@@ -50,8 +50,6 @@ export function Chat({ scope, attribute, loading}) {
 }
 
 
-
-
 function MessagesPanel(props) {
     let {player, stage, round, scope, msgs } = props;
     const scroller = useRef(null);
