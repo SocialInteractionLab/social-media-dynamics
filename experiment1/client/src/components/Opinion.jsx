@@ -1,10 +1,14 @@
 import React from "react";
 import {InputBox} from "./InputBox";
-import {Slider, usePlayer, useRound } from "@empirica/core/player/classic/react";
+import {Slider, usePlayer, useRound, useGame } from "@empirica/core/player/classic/react";
 
-export function Opinion({toggle, scope, attribute}){
+export function Opinion({ scope, attribute}){
     const round = useRound();
     const player = usePlayer();
+    const game = useGame();
+
+    //set component to appropiate opinion input based on treatment
+    const toggle = game.get("treatment")["opinion"] === "slider" ? 1 : 0 ;
 
     //method for input box sends data of user's opinion to Empirica's mongoDB
     const handleNewMessage = (text) => {
@@ -23,11 +27,11 @@ export function Opinion({toggle, scope, attribute}){
         player.set("guess", e.target.valueAsNumber)
     }
     
-    //return the slider if toggle is 0 else return a an input box component
+    //return opinion input based on treatment
     return(
         <div>
         {
-        toggle == 0 ?( 
+        toggle == 1 ?( 
             <div>
             <h2 className="align-center" style={{ marginBottom: '20px' }}>What proportion of the population are rabbits?</h2>
                 <div className="flex flex-row justify-between items-center">

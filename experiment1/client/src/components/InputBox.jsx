@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-
+//*
+// InputBox is a component for typing and sending messages
+//*
 export function InputBox({ onNewMessage }) {
   const [text, setText] = useState("");
   const resize = (e) => {
