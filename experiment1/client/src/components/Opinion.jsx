@@ -44,7 +44,7 @@ export function Opinion({ scope, attribute}){
         ) : (
             <div>
                 <h2 className="align-center text-gray-500 text-center" style={{ marginBottom: '20px' }}>What proportion of the population are rabbits? Please enter your opinion and what convinced you to make this choice.</h2>
-                <InputBox onNewMessage ={handleNewMessage}/>
+                <InputBox onNewMessage ={handleNewMessage} buttonPosition="below" buttonText="Submit" buttonStyles='w-auto h-auto py-2 px-4 text-base'/>
             </div>
         )
         }
