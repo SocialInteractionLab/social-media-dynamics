@@ -1,6 +1,7 @@
 import React from "react";
 import {InputBox} from "./InputBox";
-import {Slider, usePlayer, useRound, useGame } from "@empirica/core/player/classic/react";
+import {usePlayer, useRound, useGame } from "@empirica/core/player/classic/react";
+import { Slider } from '@mui/material';
 
 export function Opinion({ scope, attribute}){
     const round = useRound();
@@ -23,8 +24,8 @@ export function Opinion({ scope, attribute}){
         });
     };
 
-    const handleSlider = (e) => {
-        player.set("guess", e.target.valueAsNumber)
+    const handleSlider = (event, value) => {
+        player.set("guess", value)
     }
     
     //return opinion input based on treatment
@@ -33,18 +34,13 @@ export function Opinion({ scope, attribute}){
         {
         toggle == 1 ?( 
             <div>
-            <h2 className="align-center" style={{ marginBottom: '20px' }}>What proportion of the population are rabbits?</h2>
-                <div className="flex flex-row justify-between items-center">
-                   <b style={{ marginRight: '10px' }}>0</b>
-                   <Slider className="flex flex-col" value={player.get("guess")} onChange={handleSlider} max={100} 
-                   />
-                    <b style={{ marginLeft: '10px' }}>100</b> 
-                </div>
-            </div>
+            <h2 className="text-center mb-5">What proportion of the population are rabbits?</h2>
+            <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" onChangeCommitted={handleSlider} />
+          </div>
         ) : (
             <div>
                 <h2 className="align-center text-gray-500 text-center" style={{ marginBottom: '20px' }}>What proportion of the population are rabbits? Please enter your opinion and what convinced you to make this choice.</h2>
-                <InputBox onNewMessage ={handleNewMessage}/>
+                <InputBox onNewMessage ={handleNewMessage} buttonPosition="below" buttonText="Submit" buttonStyles='w-auto h-auto py-2 px-4 text-base'/>
             </div>
         )
         }
