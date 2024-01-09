@@ -10,8 +10,9 @@ export function Introduction({ next }) {
       </h3> <br/>
       <div className="mt-2 mb-6">
         <p className="text-sm text-gray-700">
-          In this task, you will be part of a team, playing with [x] other people. ([x] including you!) <br />
-          In this game, you are all neighbors in the same area, using a semi-anonymous messaging app to talk to each other. <br />
+       <b> Please read the instructions carefully. There will be a quiz. You cannot continue to the game if you do not pass the quiz.</b> <br/>
+        <br/>        
+          In this game, you are part of a team of 6-8 players. You are all <b>neighbors </b>in the same area, using a semi-anonymous messaging app to talk to each other. 
           While each individual message is only sent to and received by one person, everyone is talking to multiple people. <br />
           <br/>Picture it like this, with each line being an interaction:
 
@@ -28,18 +29,19 @@ export function Introduction({ next }) {
                      <div className="mt-2 mb-6">
 
         <p className="text-sm text-gray-700">
-          Your neighborhood has quite a lot of wildlife, particularly rabbits and squirrels. <br />
-          What everyone really wants to know is - <b>are there more rabbits or squirrels in the neighborhood?</b> <br/>
-          (Ie, is the ratio 50/50, 1 rabbit for each 1 squirrel, or is it more like 70/30, 2 rabbits for each squirrel?) <br />
-
-         However, you only know what's going on in your part of the neighborhood - how many critters you see outside your window. <br />
-          <br/>Everyone on the team has a single window they're looking out of, which you can see on the left of the image below.
+          Your neighborhood has quite a lot of wildlife, particularly <b>rabbits</b> and <b>squirrels</b>. <br /><br/>
+          What everyone really wants to know is - <b>are there more rabbits or squirrels in the neighborhood?</b> <br/><br/>
+          
+         However, you only know what's going on in your part of the neighborhood - how many critters you see outside your <b>window</b>. <br />
+          <br/>Everyone on the team has a single  <b>window</b> they're looking out of, which you can see on the left of the image below.
           <br/><div className="window" style={{ margin: "20px" }}>
             <center><img width="700px" src="./interaction.png" /></center>
           </div>
 
-          You're going to share what you think with your neighbours using the messaging app, seen to the right of the image.<br />
-          Following this, you will read someone else's review and make a judgment of the ratio of rabbits to squirrels using the slider:
+          You're going to share what you think with your neighbor using the <b>messaging app</b>, seen to the right of the image.<br /> <br/>
+
+          Following this, you will read someone else's review and make a judgment of the ratio of rabbits to squirrels using the <b>slider</b>. <br/> <br/> 
+          The <b>slider</b> measures the proportion of the population as a percentage. So if you think the population is half (or 50%) rabbits, you would put the slider in the middle. <br/> If you think it's all squirrels (0% rabbits) you would put it at the leftmost end. 
           <br/><div className="slider" style={{ margin: "20px" }}>
             <center><img width="300px" src="./slider.png" /></center>
           </div>
