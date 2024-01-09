@@ -9,7 +9,7 @@ import { Introduction } from "./intro-exit/Introduction";
 
 import {Consent }from "./intro-exit/Consent.jsx";
 //import UIOverview from "./intro-exit/UIOverview.jsx";
-//import IndividualQuiz from "./intro-exit/IndividualQuiz.jsx";
+import { Quiz } from "./intro-exit/IndividualQuiz.jsx";
 
 
 export default function App() {
@@ -20,7 +20,7 @@ export default function App() {
   const url = `${protocol}//${host}/query`;
 
   function introSteps({ game, player }) {
-    return [Introduction, Consent, ];
+    return [Introduction, Quiz, Consent,];
   }
   function exitSteps({ game, player }) {
     return [ExitSurvey];
