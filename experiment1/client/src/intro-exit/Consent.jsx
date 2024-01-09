@@ -28,22 +28,27 @@ export function Consent({ next }) {
             <strong>Purpose of the research:</strong> The purpose is to understand how an agreement is reached in a networked community.
           </p><br/>
           <p>
-            <strong>Risks:</strong> There are no anticipated risks associated with participating in this study. The effects should be comparable to viewing a computer monitor and using a mouse.
+            <strong>Risks:</strong> There are no anticipated risks associated with participating in this study. The effects should be comparable to viewing a computer monitor and using a mouse for the duration of the experiment.
           </p><br/>
           <p>
             <strong>Compensation:</strong> You will receive x for completing the experiment and a performance bonus of up to x.
           </p><br/>
           <p>
-            <strong>Confidentiality:</strong> Your participation will remain confidential. No personally identifiable information will be collected. Your anonymous data may be shared with other researchers and used in future projects.
+            <strong>Confidentiality:</strong> Your participation in this study will remain confidential. No personally identifiable information will be collected. Your anonymous data may be shared with other researchers and used in future projects.
           </p><br/>
           <p>
-            <strong>Participation and withdrawal:</strong> Your participation is completely voluntary. You may refuse to participate or choose to withdraw at any time without penalty or loss of benefits.
+            <strong>Participation and withdrawal:</strong> Your participation in this study is completely voluntary and you may refuse to participate or choose to withdraw at any time without penalty or loss of benefits to which you are otherwise entitled.
           </p><br/>
           <p>
-            <strong>How to contact the researcher:</strong> If you have questions or concerns, please contact <a href="mailto:yzubak@wisc.edu">yzubak@wisc.edu</a>.
+            <strong>How to contact the researcher:</strong> f you have questions or
+        concerns about your participation or payment, or want to request a
+        summary of research findings, please contact  <a href="mailto:yzubak@wisc.edu">yzubak@wisc.edu</a>.
           </p><br/>
           <p>
-            <strong>Whom to contact about your rights in this research:</strong> For questions, concerns, suggestions, or complaints, contact the University of Wisconsin-Madison Human Research Protection Program at 608-890-4399 or <a href="mailto:compliance@research.wisc.edu">compliance@research.wisc.edu</a>.
+            <strong>Whom to contact about your rights in this research:</strong> For
+        questions, concerns, suggestions, or complaints that have not been or
+        cannot be addressed by the researcher, or to report research-related
+        harm, please contact the University of Wisconsin-Madison Human Research Protection Program at 608-890-4399 or <a href="mailto:compliance@research.wisc.edu">compliance@research.wisc.edu</a>.
           </p><br/>
         </div>
         <Button handleClick={next} autoFocus>
