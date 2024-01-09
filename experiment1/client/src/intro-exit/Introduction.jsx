@@ -30,9 +30,17 @@ export function Introduction({ next }) {
 
         <p className="text-sm text-gray-700">
           Your neighborhood has quite a lot of wildlife, particularly <b>rabbits</b> and <b>squirrels</b>. <br /><br/>
-          What everyone really wants to know is - <b>are there more rabbits or squirrels in the neighborhood?</b> <br/><br/>
+          What everyone wants to know is - <b>are there more rabbits or squirrels in the neighborhood?</b> <br/><br/>
           
          However, you only know what's going on in your part of the neighborhood - how many critters you see outside your <b>window</b>. <br />
+ </p>
+        </div> <br/>
+         <h3 className="text-lg leading-6 font-medium text-gray-900">
+            Interface
+          </h3> 
+                     <div className="mt-2 mb-6">
+
+        <p className="text-sm text-gray-700">
           <br/>Everyone on the team has a single  <b>window</b> they're looking out of, which you can see on the left of the image below.
           <br/><div className="window" style={{ margin: "20px" }}>
             <center><img width="700px" src="./interaction.png" /></center>
@@ -40,8 +48,8 @@ export function Introduction({ next }) {
 
           You're going to share what you think with your neighbor using the <b>messaging app</b>, seen to the right of the image.<br /> <br/>
 
-          Following this, you will read someone else's review and make a judgment of the ratio of rabbits to squirrels using the <b>slider</b>. <br/> <br/> 
-          The <b>slider</b> measures the proportion of the population as a percentage. So if you think the population is half (or 50%) rabbits, you would put the slider in the middle. <br/> If you think it's all squirrels (0% rabbits) you would put it at the leftmost end. 
+          Following this, you will read someone else's thoughts and make a judgment of the ratio of rabbits to squirrels using the <b>slider</b>. <br/> <br/> 
+          The <b>slider</b> measures the proportion of the population as a percentage <b> of rabbits</b>. So if you think the population is half (or 50%) rabbits, you would put the slider in the middle. If you think it's all squirrels (0% rabbits) you would put it at the leftmost end. 
           <br/><div className="slider" style={{ margin: "20px" }}>
             <center><img width="300px" src="./slider.png" /></center>
           </div>
