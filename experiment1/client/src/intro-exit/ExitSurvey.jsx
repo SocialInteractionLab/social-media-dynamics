@@ -35,15 +35,12 @@ export function ExitSurvey({ next }) {
 
   return (
     <div className="py-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <Alert title="Bonus">
+      <Alert title="Reward">
         <p>
-          Please submit the following code to receive your bonus:{" "}
-          <strong>{player.id}</strong>.
+          Please submit the following code to receive your reward:{" "}
+          <strong>Ytg3zZbwnwq0</strong>.
         </p>
-        <p className="pt-1">
-          Your final <strong>bonus</strong> is in addition of the{" "}
-          <strong>1 base reward</strong> for completing the HIT.
-        </p>
+        
       </Alert>
 
       <form
@@ -99,7 +96,7 @@ export function ExitSurvey({ next }) {
 
               <div>
                 <label className={labelClassName}>
-                  Highest Education Qualification
+                  Education 
                 </label>
                 <div className="grid gap-2">
                   <Radio
@@ -133,7 +130,7 @@ export function ExitSurvey({ next }) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-x-6 gap-y-3">
+              <div className="grid grid-cols-4 gap-x-6 gap-y-3">
                 <label className={labelClassName}>
                   How would you describe your strength in the game?
                 </label>
@@ -144,6 +141,10 @@ export function ExitSurvey({ next }) {
 
                 <label className={labelClassName}>
                   Feedback, including problems you encountered.
+                </label>
+
+                <label className={labelClassName}>
+                  Did you find your teammates to be good co-players?
                 </label>
 
                 <textarea
@@ -174,6 +175,15 @@ export function ExitSurvey({ next }) {
                   rows={4}
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
+                />
+                 <textarea
+                  className={inputClassName}
+                  dir="auto"
+                  id="teammates"
+                  name="teammates"
+                  rows={4}
+                  value={strength}
+                  onChange={(e) => setStrength(e.target.value)}
                 />
               </div>
 

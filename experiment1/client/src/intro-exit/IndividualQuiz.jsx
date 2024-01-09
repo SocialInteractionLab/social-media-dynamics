@@ -1,218 +1,100 @@
-import React from "react";
+import React, { useState } from "react";
+import { Button } from "../components/Button";
 
-import { Centered, AlertToaster } from "meteor/empirica:core";
+export function Quiz({next}) {
+  //const game = useGame();
+  //const treatment = game.get("treatment");
+  //const { feedback } = treatment;
+  const [answers, setAnswers] = useState({});
 
-import { Checkbox } from "@blueprintjs/core";
+  const questions = [
+    {
+      question: "What is the goal of this game?",
+      choices: [
+        "(A) Learn to identify different species.",
+        "(B) Figure out the ratio of squirrels to rabbits in the neighborhood.",
+        "(C) Gossip with your neighbors about each other",
+      ],
+      correctAnswer: "(B) Figure out the ratio of squirrels to rabbits in the neighborhood.",
+    },
+    {
+      question: "How many people are reading your message?",
+      choices: [
+        "(A) Nobody :(",
+        "(B) Everyone :)",
+        "(C) One person per message.",
+      ],
+      correctAnswer: "(C) One person per message.",
+    },
+    {
+      question: "What happens if everyone agrees on the ratio?",
+      choices: [
+        "(A) We receive a bonus.",
+        "(B) Nothing but cozy feelings of success and community effort.",
+        "(C) The researchers will send me a live rabbit.",
+      ],
+      correctAnswer: "(A) We receive a bonus.",
+    },
+  ];
 
-export default class IndividualQuiz extends React.Component {
-  state = {
-    violatedConstraints: "",
-    largeError: "",
-    mc_1_101: false,
-    mc_1_102: false,
-    mc_1_103: false,
-    mc_1_104: false,
-    mc_1_105: false,
-    mc_2_101: false,
-    mc_2_102: false,
-    mc_2_103: false,
-    mc_2_104: false,
-    mc_2_105: false
+  const handleChoiceChange = (questionIndex, event) => {
+    setAnswers({
+      ...answers,
+      [questionIndex]: event.target.value,
+    });
   };
 
-  handleChange = event => {
-    const el = event.currentTarget;
-    this.setState({ [el.name]: el.value.trim().toLowerCase() });
-  };
-
-  handleEnabledChange = event => {
-    const el = event.currentTarget;
-    this.setState({ [el.name]: !this.state[el.name] });
-  };
-
-  handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
-    //it should be this.state.nParticipants !== "3" but we don't have "treatment" in QUIZ
-    if (
-      this.state.violatedConstraints !== "100" ||
-      this.state.largeError !== "0" ||
-      this.state.mc_1_101 ||
-      !this.state.mc_1_102 || //only this one is correct
-      this.state.mc_1_103 ||
-      this.state.mc_1_104 ||
-      this.state.mc_1_105 ||
-      this.state.mc_2_101 ||
-      !this.state.mc_2_102 || //this one is correct
-      this.state.mc_2_103 ||
-      !this.state.mc_2_104 || //this one is correct
-      this.state.mc_2_105
-    ) {
-      AlertToaster.show({
-        message:
-          "Sorry, you have one or more mistakes. Please ensure that you answer the questions correctly, or go back to the instructions"
-      });
+    const allCorrect = questions.every(
+      (q, index) => answers[index] === q.correctAnswer
+    );
+
+    if (allCorrect) {
+      alert("Congratulations, you answered all questions correctly!");
+      next();
     } else {
-      this.props.onNext();
+      alert("Some answers are incorrect. Please try again.");
     }
   };
 
-  render() {
-    const { hasPrev, onPrev } = this.props;
-    const { violatedConstraints, largeError } = this.state;
-    return (
-      <Centered>
-        <div className="quiz">
-          <h1 className={"bp3-heading"}> Quiz </h1>
-          <form onSubmit={this.handleSubmit}>
-            <div className="bp3-form-group">
-              <label className="bp3-label" htmlFor="number-of-participants">
-                If you end up NOT assigning all students to room (i.e., at least
-                one student remained in the deck) then the score for that task
-                will be:
-              </label>
-              <div className="bp3-form-content">
+  const radioStyle = {
+    display: "block",
+    margin: "8px 0",
+  };
+
+  const inputStyle = {
+    marginRight: "10px",
+  };
+
+  return (
+    <div className="flex items-center justify-center w-screen" style={{ margin: "50px" }}><div className="w-1/2">
+       <h3 className="text-lg leading-6 text-gray-900"> <center>
+        Comprehension Quiz </center>
+      </h3> <br/>
+      <form>
+        {questions.map((q, questionIndex) => (
+          <div key={questionIndex}>
+           <br/> <h2><b>{q.question}</b></h2> <br/>
+            {q.choices.map((choice, index) => (
+              <label key={index} style={radioStyle}>
                 <input
-                  id="nParticipants"
-                  className="bp3-input"
-                  type="number"
-                  min="-10"
-                  max="10"
-                  step="1"
-                  dir="auto"
-                  name="largeError"
-                  value={largeError}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="bp3-form-group">
-              <label className="bp3-label" htmlFor="number-of-participants">
-                For each unsatisfied (i.e., violated) constraint, how many
-                points will be deducted from you?
+                  type="radio"
+                  style={inputStyle}
+                  name={`question-${questionIndex}`}
+                  value={choice}
+                  checked={answers[questionIndex] === choice}
+                  onChange={(e) => handleChoiceChange(questionIndex, e)}
+                /> 
+                {choice}
               </label>
-              <div className="bp3-form-content">
-                <input
-                  id="violatedConstraints"
-                  className="bp3-input"
-                  type="number"
-                  min="0"
-                  max="1000"
-                  step="1"
-                  dir="auto"
-                  name="violatedConstraints"
-                  value={violatedConstraints}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="bp3-form-group">
-              <label className="bp3-label" htmlFor="neighbor-of-room-101">
-                Which of the following rooms is a neighbor of Room 101? Please
-                select all that apply.
-              </label>
-              <div className="bp3-form-content ">
-                <div className="bp3-control bp3-checkbox bp3-inline">
-                  <Checkbox
-                    name={"mc_1_101"}
-                    label="Room 101"
-                    onChange={this.handleEnabledChange}
-                  />
-                </div>
-                <div className="bp3-control bp3-checkbox bp3-inline">
-                  <Checkbox
-                    name={"mc_1_102"}
-                    label="Room 102"
-                    onChange={this.handleEnabledChange}
-                  />
-                </div>
-                <div className="bp3-control bp3-checkbox">
-                  <Checkbox
-                    name={"mc_1_103"}
-                    label="Room 103"
-                    onChange={this.handleEnabledChange}
-                  />
-                </div>
-                <div className="bp3-control bp3-checkbox bp3-inline">
-                  <Checkbox
-                    name={"mc_1_104"}
-                    label="Room 104"
-                    onChange={this.handleEnabledChange}
-                  />
-                </div>
-                <div className="bp3-control bp3-checkbox bp3-inline">
-                  <Checkbox
-                    name={"mc_1_105"}
-                    label="Room 105"
-                    onChange={this.handleEnabledChange}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="bp3-form-group">
-              <label className="bp3-label" htmlFor="neighbor-of-room-101">
-                Which of the following rooms is a neighbor of Room 103? Please
-                select all that apply.{" "}
-              </label>
-              <div className="bp3-form-content ">
-                <div className="bp3-control bp3-checkbox">
-                  <Checkbox
-                    name={"mc_2_101"}
-                    label="Room 101"
-                    onChange={this.handleEnabledChange}
-                  />
-                </div>
-                <div className="bp3-control bp3-checkbox bp3-inline">
-                  <Checkbox
-                    name={"mc_2_102"}
-                    label="Room 102"
-                    onChange={this.handleEnabledChange}
-                  />
-                </div>
-                <div className="bp3-control bp3-checkbox bp3-inline">
-                  <Checkbox
-                    name={"mc_2_103"}
-                    label="Room 103"
-                    onChange={this.handleEnabledChange}
-                  />
-                </div>
-                <div className="bp3-control bp3-checkbox">
-                  <Checkbox
-                    name={"mc_2_104"}
-                    label="Room 104"
-                    onChange={this.handleEnabledChange}
-                  />
-                </div>
-                <div className="bp3-control bp3-checkbox">
-                  <Checkbox
-                    name={"mc_2_105"}
-                    label="Room 105"
-                    onChange={this.handleEnabledChange}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              className="bp3-button bp3-intent-nope bp3-icon-double-chevron-left"
-              onClick={onPrev}
-              disabled={!hasPrev}
-            >
-              Back to instructions
-            </button>
-            <button type="submit" className="bp3-button bp3-intent-primary">
-              Submit
-              <span className="bp3-icon-standard bp3-icon-key-enter bp3-align-right" />
-            </button>
-          </form>
-        </div>
-      </Centered>
-    );
-  }
+            ))}
+          </div>
+        ))}
+        <br />
+        <Button handleClick={handleSubmit}>Submit</Button>
+      </form>
+    </div> </div>
+  );
 }
