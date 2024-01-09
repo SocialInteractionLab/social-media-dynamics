@@ -6,6 +6,12 @@ import { Game } from "./Game";
 import { ExitSurvey } from "./intro-exit/ExitSurvey";
 import { Introduction } from "./intro-exit/Introduction";
 
+
+import {Consent }from "./intro-exit/Consent.jsx";
+//import UIOverview from "./intro-exit/UIOverview.jsx";
+//import IndividualQuiz from "./intro-exit/IndividualQuiz.jsx";
+
+
 export default function App() {
   const urlParams = new URLSearchParams(window.location.search);
   const playerKey = urlParams.get("participantKey") || "";
@@ -14,9 +20,8 @@ export default function App() {
   const url = `${protocol}//${host}/query`;
 
   function introSteps({ game, player }) {
-    return [Introduction];
+    return [Introduction, Consent, ];
   }
-
   function exitSteps({ game, player }) {
     return [ExitSurvey];
   }
@@ -34,3 +39,4 @@ export default function App() {
     </EmpiricaParticipant>
   );
 }
+
