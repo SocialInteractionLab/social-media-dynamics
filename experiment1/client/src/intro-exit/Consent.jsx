@@ -19,7 +19,7 @@ export function Consent({ next }) {
           <p>
             <strong>What you will do in this research:</strong> You will play a series of communication 
             games with other participants: describing the amount of animals you see, 
-            with the goal of all agreeing on how many there are.
+            with the goal of all agreeing on how relatively many there are.
           </p> <br/>
           <p>
             <strong>Time required:</strong> This study will take approximately twenty minutes.
@@ -45,7 +45,7 @@ export function Consent({ next }) {
         summary of research findings, please contact  <a href="mailto:yzubak@wisc.edu">yzubak@wisc.edu</a>.
           </p><br/>
           <p>
-            <strong>Whom to contact about your rights in this research:</strong> For
+            <strong>Who to contact about your rights in this research:</strong> For
         questions, concerns, suggestions, or complaints that have not been or
         cannot be addressed by the researcher, or to report research-related
         harm, please contact the University of Wisconsin-Madison Human Research Protection Program at 608-890-4399 or <a href="mailto:compliance@research.wisc.edu">compliance@research.wisc.edu</a>.
