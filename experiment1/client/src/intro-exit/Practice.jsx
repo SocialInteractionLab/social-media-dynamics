@@ -161,10 +161,7 @@ function MessageComp(props) {
     let {player, scope, attribute, index} = props;
     const msg = attribute.value;
     const ts = attribute.createdAt;
-    let avatar = msg.sender.avatar;
-    if (!avatar) {
-        avatar = `https://api.dicebear.com/7.x/fun-emoji/svg?seed=${msg.sender.id}`;
-    }
+    let avatar = ":("
 
     let avatarImage = (
         <img className="inline-block h-9 w-9 rounded-full" src={avatar} alt={msg.sender.id}/>
