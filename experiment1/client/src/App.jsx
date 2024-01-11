@@ -8,7 +8,7 @@ import { Introduction } from "./intro-exit/Introduction";
 
 
 import {Consent }from "./intro-exit/Consent.jsx";
-//import UIOverview from "./intro-exit/UIOverview.jsx";
+//import {Practice} from "./intro-exit/Practice.jsx";
 import { Quiz } from "./intro-exit/IndividualQuiz.jsx";
 
 
