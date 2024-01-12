@@ -9,23 +9,11 @@ factors:
         - value: 8
         - value: 13
         - value: 4
+    - name: opinion
+      values:
+        - value: slider
 treatments:
-    - name: Solo
-      desc: Single-player Game
+    - name: experiment1
       factors:
-        playerCount: 1
-    - name: Two Players
-      desc: Two-player Game
-      factors:
-        playerCount: 2
-    - name: "4-Slider"
-      factors:
+        opinion: slider
         playerCount: 4
-        opinion: "slider"
-    - name: "4-text"
-      factors:
-        playerCount: 4
-        opinion: "text"  
-    - name: "8"
-      factors:
-        playerCount: 8
