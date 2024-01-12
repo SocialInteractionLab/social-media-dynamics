@@ -10,18 +10,37 @@ export function World() {
   const critterDistribution = player.get('emojiArray')
  
 
-  return (
+return (
+  <div style={{
+    position: 'relative',
+    width: '90%',
+    height: '90%',
+    borderRadius: '20px',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }}>
     <div style={{
-           backgroundImage: 'url("/freepik.png")', backgroundColor: '#268b07',
-           width: '90%', height: '90%',
-           borderRadius: '20px', display: 'flex', flexWrap: 'wrap',
-           justifyContent: 'center', alignItems: 'center'}}>
-      {[...Array(1)].map((_, index) => (
-        <span key={index} style={{ fontSize: '70px' }}>
-          {critterDistribution}
-        </span>
-      ))}
-    </div>
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      backgroundImage: 'url("/freepik.png")',
+      backgroundColor: '#268b07',
+      opacity: 0.7,
+      borderRadius: '20px',
+      zIndex: -1,
+    }}></div>
+
+    {[...Array(1)].map((_, index) => (
+      <span key={index} style={{ fontSize: '70px' }}>
+        {critterDistribution}
+      </span>
+    ))}
+  </div>
+
   );
 }
 
