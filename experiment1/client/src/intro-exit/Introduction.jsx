@@ -62,7 +62,7 @@ export function Introduction({ next }) {
           On the next page is a quiz to test your knowledge of the game!
         </p> 
       </div>
-      <Button handleClick={next} autoFocus>
+      <Button handleClick={next}>
         Next
       </Button>
     </div> </div> </div>

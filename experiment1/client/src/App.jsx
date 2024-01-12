@@ -8,7 +8,7 @@ import { Introduction } from "./intro-exit/Introduction";
 
 
 import {Consent }from "./intro-exit/Consent.jsx";
-//import {Practice} from "./intro-exit/Practice.jsx";
+import {Practice} from "./intro-exit/Practice.jsx";
 import { Quiz } from "./intro-exit/IndividualQuiz.jsx";
 
 
@@ -20,7 +20,7 @@ export default function App() {
   const url = `${protocol}//${host}/query`;
 
   function introSteps({ game, player }) {
-    return [Introduction, Quiz, Consent,];
+    return [Introduction, Practice, Quiz, Consent,];
   }
   function exitSteps({ game, player }) {
     return [ExitSurvey];
