@@ -54,11 +54,10 @@ export function Introduction({ next }) {
             <center><img width="300px" src="./slider.png" /></center>
           </div>
 
-          This process will repeat several times as you continue sharing with your neighbors how many rabbits and squirrels you think there are. This will occur over several <b>"days"</b>. 
-          <br/> While what you see outside your window may change day to day, the amount of rabbits/squirrels in the neighborhood remains constant! 
+          This process will repeat several times as you continue sharing with your neighbors how many rabbits and squirrels you think there are. 
 
            <br/> <br/>You can be informative or uninformative, sharing as much or as little information as you like, with a caveat!<br />
-          <br/><b>If, by the end of the game, all of you are in agreement as to the ratio of critters, you will receive a bonus (x). </b>
+          <br/><b>If, by the end of the game, all of you are in agreement as to the ratio of critters, you will receive a bonus. The base pay for this experiment is 15$/hr. </b>
           On the next page is a quiz to test your knowledge of the game!
         </p> 
       </div>
