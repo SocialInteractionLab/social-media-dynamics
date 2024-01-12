@@ -7,9 +7,12 @@ import { ExitSurvey } from "./intro-exit/ExitSurvey";
 import { Introduction } from "./intro-exit/Introduction";
 
 
+
 import {Consent }from "./intro-exit/Consent.jsx";
 import {Practice} from "./intro-exit/Practice.jsx";
 import { Quiz } from "./intro-exit/IndividualQuiz.jsx";
+import { Last } from "./intro-exit/LastPage.jsx";
+
 
 
 export default function App() {
@@ -23,7 +26,7 @@ export default function App() {
     return [Introduction, Practice, Quiz, Consent,];
   }
   function exitSteps({ game, player }) {
-    return [ExitSurvey];
+    return [ExitSurvey, Last];
   }
 
   return (

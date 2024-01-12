@@ -46,13 +46,7 @@ export function ExitSurvey({ next }) {
 
   return (
     <div className="py-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <Alert title="Reward">
-        <p>
-          Please submit the following code to receive your reward:{" "}
-          <strong>C1BFUUPO</strong>.
-        </p>
-        
-      </Alert>
+    
 
       <form
         className="mt-12 space-y-8 divide-y divide-gray-200"
