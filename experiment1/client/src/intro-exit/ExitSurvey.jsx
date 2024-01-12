@@ -49,7 +49,7 @@ export function ExitSurvey({ next }) {
       <Alert title="Reward">
         <p>
           Please submit the following code to receive your reward:{" "}
-          <strong>Ytg3zZbwnwq0</strong>.
+          <strong>C1BFUUPO</strong>.
         </p>
         
       </Alert>
