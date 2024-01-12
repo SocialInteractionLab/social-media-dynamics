@@ -243,7 +243,7 @@ function PInputBox({ onNewMessage, buttonText, buttonStyles, buttonPosition }) {
 
 function POpinion({next}) {
   const handleSlider = (event, value) => {
-    if (value >= 56 && value <= 64) {
+    if (value >= 0 && value <= 100) {
       alert("Congratulations, you've completed the practice!");
       next();
     } else {
