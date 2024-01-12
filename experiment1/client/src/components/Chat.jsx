@@ -3,6 +3,14 @@ import { Loading } from "@empirica/core/player/react";
 import React, {useState, useRef, useEffect } from "react";
 import { Opinion } from "./Opinion";
 import { InputBox } from "./InputBox";
+import a from '/avatar1.png';
+import b from '/avatar2.png';
+import c from '/avatar3.png';
+import d from '/avatar4.png';
+import e from '/avatar5.png';
+import f from '/avatar6.png';
+import g from '/avatar7.png';
+import h from '/avatar8.png';
 
 //import RangeSlider from 'react-range-slider-input';
 //import 'react-range-slider-input/dist/style.css';
@@ -102,29 +110,35 @@ function MessagesPanel(props) {
 //*
 // MessageComp is the component showing an individual message
 //*
+const hashString = (str) => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0; // Convert to 32bit integer
+  }
+  return Math.abs(hash);
+};
+
 function MessageComp(props) {
     let {player, scope, attribute, index} = props;
     const msg = attribute.value;
     const ts = attribute.createdAt;
-    let avatar = msg.sender.avatar;
-    if (!avatar) {
-        avatar = `https://api.dicebear.com/7.x/fun-emoji/svg?seed=${msg.sender.id}`;
-    }
-
-    let avatarImage = (
-        <img className="inline-block h-9 w-9 rounded-full" src={avatar} alt={msg.sender.id}/>
-    );
-    if (!avatar.startsWith("http")) {
-        avatarImage = (
-            <div className="inline-block h-9 w-9 rounded-full">{avatar}</div>
-        );
-    }
+    const numericId = hashString(msg.sender.id);
+    const avatarImages = [a, b, c, d, e, f, g, h];
+    const avatarIndex = numericId % avatarImages.length; // Ensure index is within bounds
+    const selectedAvatar = avatarImages[avatarIndex]; // Corrected variable name
 
     let item = scope.get("chat")[index];
 
     return (
         <div className="flex items-start my-2 shadow p-8">
-            <div className="flex-shrink-0">{avatarImage}</div>
+            <div className="flex-shrink-0">
+                <img
+                    className="h-full w-full rounded-md shadow bg-white p-1"
+                    src={selectedAvatar}
+                    alt="Avatar"
+                />
+            </div>
             <div className="ml-3 text-sm">
                 <p>
                     <span className="font-semibold text-gray-900 group-hover:text-gray-800">
@@ -137,6 +151,7 @@ function MessageComp(props) {
         </div>
     );
 }
+
 
 
 //*
