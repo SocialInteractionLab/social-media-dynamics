@@ -26,6 +26,15 @@ export function Quiz({next}) {
       ],
       correctAnswer: "(C) One person per message.",
     },
+{
+      question: "If you wanted to express the fraction 2/10 as a percentage, what would the percentage be?",
+      choices: [
+        "(A) 20%",
+        "(B) 75%",
+        "(C) 80%",
+      ],
+      correctAnswer: "(A) 20%",
+    },
     {
       question: "What happens if everyone agrees on the ratio?",
       choices: [
