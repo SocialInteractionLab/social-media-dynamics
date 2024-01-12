@@ -32,7 +32,7 @@ export function Opinion({ scope, attribute}){
     return(
         <div>
         {
-        toggle == 0 ?( 
+        toggle == 1 ?( 
             <div>
             <h2 className="text-center mb-5">What proportion of the population are rabbits?</h2><br/>
             <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" onChangeCommitted={handleSlider} />
