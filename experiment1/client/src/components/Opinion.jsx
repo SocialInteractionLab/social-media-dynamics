@@ -25,7 +25,7 @@ export function Opinion({ scope, attribute}){
     };
 
     const handleSlider = (event, value) => {
-        player.set("guess", value)
+        player.stage.set("guess", value)
     }
     
     //return opinion input based on treatment
