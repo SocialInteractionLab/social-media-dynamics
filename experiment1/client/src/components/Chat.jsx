@@ -1,4 +1,4 @@
-import {usePlayer, useStage, useRound } from "@empirica/core/player/classic/react";
+import {usePlayer, useStage, useRound, useGame } from "@empirica/core/player/classic/react";
 import { Loading } from "@empirica/core/player/react";
 import React, {useState, useRef, useEffect } from "react";
 import { Opinion } from "./Opinion";
@@ -11,15 +11,16 @@ import e from '/avatar5.png';
 import f from '/avatar6.png';
 import g from '/avatar7.png';
 import h from '/avatar8.png';
+import { useSpring, animated } from 'react-spring';
 
 //import RangeSlider from 'react-range-slider-input';
 //import 'react-range-slider-input/dist/style.css';
-
 
 export function Chat({ scope, attribute, loading}) {
     const player = usePlayer();
     const round = useRound();
     const stage = useStage();
+    const game = useGame();
 
     if (!scope || !player) {
         return <LoadingComp />;
@@ -28,6 +29,7 @@ export function Chat({ scope, attribute, loading}) {
         scope.append(attribute, {
             text,
             likes : {},
+            time: Date.now(),
             round: round.get('idx'),
             recipient: player.get("recipient"),
             sender: {
@@ -36,6 +38,9 @@ export function Chat({ scope, attribute, loading}) {
                 avatar: player.get("avatar"),
             },
         });
+        const playerStageData = scope.getAttribute(attribute)?.items || [];
+        console.log(playerStageData);
+        game.set("messages", playerStageData.map((msg, i) => msg.val._value));
     };
 
     let msgs = scope.getAttribute(attribute)?.items || [];
@@ -57,6 +62,15 @@ export function Chat({ scope, attribute, loading}) {
     );
 }
 
+function Message(props) {
+    const animationProps = useSpring({ opacity: 1, from: { opacity: 0 } });
+
+    return (
+        <animated.div style={animationProps}>
+            <MessageComp {...props} />
+        </animated.div>
+    );
+}
 
 function MessagesPanel(props) {
     let {player, stage, round, scope, msgs } = props;
@@ -100,9 +114,15 @@ function MessagesPanel(props) {
     // Filter messages based on stage
     return (
         <div className="h-full w-full items-center overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
-        {msgsFiltered.map((msg, i) => (
-            <MessageComp key={msg.id} index={i} player={player} scope={scope} attribute={msg} />
-        ))}
+            {msgsFiltered.map((msg, i) => (
+                <Message 
+                    key={msg.id} 
+                    index={i} 
+                    player={player} 
+                    scope={scope} 
+                    attribute={msg} 
+                />
+            ))}
         </div>
     );
 }
