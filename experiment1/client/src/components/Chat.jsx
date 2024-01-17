@@ -28,6 +28,7 @@ export function Chat({ scope, attribute, loading}) {
         scope.append(attribute, {
             text,
             likes : {},
+            time: Date.now(),
             round: round.get('idx'),
             recipient: player.get("recipient"),
             sender: {
@@ -38,7 +39,7 @@ export function Chat({ scope, attribute, loading}) {
         });
         const playerStageData = scope.getAttribute(attribute)?.items || [];
         console.log(playerStageData);
-        game.set("messages", playerStageData);
+        game.set("messages", playerStageData.map((msg, i) => msg.val._value));
     };
 
     let msgs = scope.getAttribute(attribute)?.items || [];
