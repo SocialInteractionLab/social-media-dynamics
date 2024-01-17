@@ -3,6 +3,7 @@ import { Loading } from "@empirica/core/player/react";
 import React, {useState, useRef, useEffect } from "react";
 import { Opinion } from "./Opinion";
 import { InputBox } from "./InputBox";
+import { useSpring, animated } from 'react-spring';
 
 //import RangeSlider from 'react-range-slider-input';
 //import 'react-range-slider-input/dist/style.css';
@@ -92,9 +93,14 @@ function MessagesPanel(props) {
     // Filter messages based on stage
     return (
         <div className="h-full w-full items-center overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
-        {msgsFiltered.map((msg, i) => (
-            <MessageComp key={msg.id} index={i} player={player} scope={scope} attribute={msg} />
-        ))}
+            {msgsFiltered.map((msg, i) => {
+                const props = useSpring({ opacity: 1, from: { opacity: 0 } });
+                return (
+                    <animated.div style={props} key={msg.id}>
+                        <MessageComp index={i} player={player} scope={scope} attribute={msg} />
+                    </animated.div>
+                );
+            })}
         </div>
     );
 }

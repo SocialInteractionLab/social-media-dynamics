@@ -10,6 +10,7 @@
     "esbuild": "0.17.15",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-spring": "^9.7.3",
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
