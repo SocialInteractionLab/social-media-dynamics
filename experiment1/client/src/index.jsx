@@ -8,21 +8,23 @@ import "./index.css";
 
 import * as Sentry from "@sentry/react";
 
+import * as Sentry from "@sentry/react";
+
 Sentry.init({
   dsn: "https://269679b764a48cc621b10a138afa4d8e@o4506525893853184.ingest.sentry.io/4506526324424704",
-  integrations: [
-    new Sentry.BrowserTracing({
-        tracePropagationTargets: ["147.182.195.234:3000"],
-    }),
-    new Sentry.Replay({
-      maskAllText: false,
-      blockAllMedia: false,
-    }),
-  ],
-   tracesSampleRate: 1.0,
-   replaysSessionSampleRate: 0.1,
-   replaysOnErrorSampleRate: 1.0,
- });
+  integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  tracesSampleRate: 1.0,
+
+  // Capture Replay for 10% of all sessions,
+  // plus for 100% of sessions with an error
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
+});
+
+this.myCodeIsPerfect();
 
 const container = document.getElementById("root");
 const root = createRoot(container);
