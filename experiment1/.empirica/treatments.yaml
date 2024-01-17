@@ -11,7 +11,8 @@ factors:
         - value: 4
     - name: opinion
       values:
-        - value: 1
+        - value: text
+        - value: slider
 treatments:
     - name: Solo
       desc: Single-player Game
@@ -34,5 +35,5 @@ treatments:
         playerCount: 8
     - name: Two-slider
       factors:
-        opinion: 1
+        opinion: slider
         playerCount: 2
