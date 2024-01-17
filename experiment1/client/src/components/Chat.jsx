@@ -58,6 +58,15 @@ export function Chat({ scope, attribute, loading}) {
     );
 }
 
+function Message(props) {
+    const animationProps = useSpring({ opacity: 1, from: { opacity: 0 } });
+
+    return (
+        <animated.div style={animationProps}>
+            <MessageComp {...props} />
+        </animated.div>
+    );
+}
 
 function MessagesPanel(props) {
     let {player, stage, round, scope, msgs } = props;
@@ -101,14 +110,15 @@ function MessagesPanel(props) {
     // Filter messages based on stage
     return (
         <div className="h-full w-full items-center overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
-            {msgsFiltered.map((msg, i) => {
-                const props = useSpring({ opacity: 1, from: { opacity: 0 } });
-                return (
-                    <animated.div style={props} key={msg.id}>
-                        <MessageComp index={i} player={player} scope={scope} attribute={msg} />
-                    </animated.div>
-                );
-            })}
+            {msgsFiltered.map((msg, i) => (
+                <Message 
+                    key={msg.id} 
+                    index={i} 
+                    player={player} 
+                    scope={scope} 
+                    attribute={msg} 
+                />
+            ))}
         </div>
     );
 }
