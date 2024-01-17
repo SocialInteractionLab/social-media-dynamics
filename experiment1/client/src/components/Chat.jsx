@@ -1,4 +1,4 @@
-import {usePlayer, useStage, useRound } from "@empirica/core/player/classic/react";
+import {usePlayer, useStage, useRound, useGame } from "@empirica/core/player/classic/react";
 import { Loading } from "@empirica/core/player/react";
 import React, {useState, useRef, useEffect } from "react";
 import { Opinion } from "./Opinion";
@@ -16,11 +16,11 @@ import { useSpring, animated } from 'react-spring';
 //import RangeSlider from 'react-range-slider-input';
 //import 'react-range-slider-input/dist/style.css';
 
-
 export function Chat({ scope, attribute, loading}) {
     const player = usePlayer();
     const round = useRound();
     const stage = useStage();
+    const game = useGame();
 
     if (!scope || !player) {
         return <LoadingComp />;
@@ -29,6 +29,7 @@ export function Chat({ scope, attribute, loading}) {
         scope.append(attribute, {
             text,
             likes : {},
+            time: Date.now(),
             round: round.get('idx'),
             recipient: player.get("recipient"),
             sender: {
@@ -37,6 +38,9 @@ export function Chat({ scope, attribute, loading}) {
                 avatar: player.get("avatar"),
             },
         });
+        const playerStageData = scope.getAttribute(attribute)?.items || [];
+        console.log(playerStageData);
+        game.set("messages", playerStageData.map((msg, i) => msg.val._value));
     };
 
     let msgs = scope.getAttribute(attribute)?.items || [];
