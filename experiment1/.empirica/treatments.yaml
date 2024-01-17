@@ -11,6 +11,7 @@ factors:
         - value: 4
     - name: opinion
       values:
+        - value: text
         - value: slider
 treatments:
     - name: experiment1
