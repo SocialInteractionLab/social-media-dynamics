@@ -14,8 +14,8 @@ Empirica.onGameStart(({ game }) => {
 
   game.players.forEach((player, i) => {
     const n = Math.floor(Math.random() * 9);
-    const nSquirrels = binomial(trueP, n);
-    const nRabbits = n - nSquirrels;
+    const nRabbits = binomial(trueP, n);
+    const nSquirrels = n - nRabbits;
 
     console.log(
       `Player ${i + 1}: nRabbits - ${nRabbits}, nSquirrels - ${nSquirrels}`

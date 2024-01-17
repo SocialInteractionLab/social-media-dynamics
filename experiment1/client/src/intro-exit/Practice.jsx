@@ -11,10 +11,10 @@ export function Practice({ next }) {
           <div className="leading-tight ml-1">
             <div className="text-gray-600 font-semibold">Practice Round</div>
           </div>
-           Timer: Untimed
+           Timer: N/A
           <div className="flex space-x-3 items-center justify-end">
             <div className="h-11 w-11">
-              <img src="../practiceAvatar.png" />
+              <img src="../avatar1.png" />
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@ function PracticeChat({next}) {
   const [stage, setStage] = useState(0);
   const handleNewMessage = (text) => {
     setScope([text]);
-    setTimeout(() => setStage(1), 10000);
+    setTimeout(() => setStage(1), 5000);
   };
 
   return (
@@ -145,7 +145,7 @@ function MessageComp(props) {
   const msgsFiltered = (stage =='0') ? scope : ['I see one dog'];
   const msg = msgsFiltered[index];
   const player = (stage =='0') ? "You" : "Neighbour";
-  const avatar = (stage =='0') ? <img src="../practiceAvatar.png" />: <img src="../practiceAvatar2.png" />;
+  const avatar = (stage =='0') ? <img src="../avatar1.png" />: <img src="../avatar2.png" />;
 
   return (
     <div className="flex items-start my-2 shadow p-8">
@@ -243,7 +243,7 @@ function PInputBox({ onNewMessage, buttonText, buttonStyles, buttonPosition }) {
 
 function POpinion({next}) {
   const handleSlider = (event, value) => {
-    if (value >= 56 && value <= 64) {
+    if (value >= 0 && value <= 100) {
       alert("Congratulations, you've completed the practice!");
       next();
     } else {
