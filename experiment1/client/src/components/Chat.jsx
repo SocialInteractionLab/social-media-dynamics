@@ -11,6 +11,7 @@ import e from '/avatar5.png';
 import f from '/avatar6.png';
 import g from '/avatar7.png';
 import h from '/avatar8.png';
+import { useSpring, animated } from 'react-spring';
 
 //import RangeSlider from 'react-range-slider-input';
 //import 'react-range-slider-input/dist/style.css';
@@ -57,6 +58,15 @@ export function Chat({ scope, attribute, loading}) {
     );
 }
 
+function Message(props) {
+    const animationProps = useSpring({ opacity: 1, from: { opacity: 0 } });
+
+    return (
+        <animated.div style={animationProps}>
+            <MessageComp {...props} />
+        </animated.div>
+    );
+}
 
 function MessagesPanel(props) {
     let {player, stage, round, scope, msgs } = props;
@@ -100,9 +110,15 @@ function MessagesPanel(props) {
     // Filter messages based on stage
     return (
         <div className="h-full w-full items-center overflow-auto pl-2 pr-4 pb-2" ref={scroller}>
-        {msgsFiltered.map((msg, i) => (
-            <MessageComp key={msg.id} index={i} player={player} scope={scope} attribute={msg} />
-        ))}
+            {msgsFiltered.map((msg, i) => (
+                <Message 
+                    key={msg.id} 
+                    index={i} 
+                    player={player} 
+                    scope={scope} 
+                    attribute={msg} 
+                />
+            ))}
         </div>
     );
 }
