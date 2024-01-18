@@ -25,6 +25,7 @@ export function Opinion({ scope, attribute}){
                 avatar: player.get("avatar"),
             },
         });
+        player.stage.set("submit", true);
     };
 
     const handleSlider = (event, value) => {
@@ -46,6 +47,9 @@ export function Opinion({ scope, attribute}){
         toggle == 1 ?( 
             <div>
             <h2 className="text-center mb-5">What proportion of the population are rabbits?</h2><br/>
+            <p className="text-gray-600 text-sm text-center mb-2">
+            The stage will advance when all players click submit
+            </p>
             <div className = "flex items-center space-x-4">
             <Slider 
                         defaultValue={50} 
