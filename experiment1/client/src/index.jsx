@@ -8,8 +8,6 @@ import "./index.css";
 
 import * as Sentry from "@sentry/react";
 
-import * as Sentry from "@sentry/react";
-
 Sentry.init({
   dsn: "https://269679b764a48cc621b10a138afa4d8e@o4506525893853184.ingest.sentry.io/4506526324424704",
   integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
@@ -23,8 +21,6 @@ Sentry.init({
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
 });
-
-this.myCodeIsPerfect();
 
 const container = document.getElementById("root");
 const root = createRoot(container);
