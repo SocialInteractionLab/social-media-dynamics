@@ -56,7 +56,8 @@ export function Chat({ scope, attribute, loading}) {
         {
             // If the stage is in send state, show the input box, else show slider/text feedback
             stage.get("name") == 'send' ?
-             <InputBox onNewMessage={handleNewMessage} buttonStyles='w-9 h-9 p-2 text-sm'/> : <Opinion toggle={1} scope = {scope} attribute = {attribute}/>
+             <InputBox onNewMessage={handleNewMessage} buttonStyles='w-9 h-9 p-2 text-sm'/> : player.stage && player.stage.get("submit") ? <div> Thank you for your answer. The next stage will start when all the other 
+             players have submitted their answer. </div> : <Opinion toggle={1} scope = {scope} attribute = {attribute}/>
         }
         </div>
     );
