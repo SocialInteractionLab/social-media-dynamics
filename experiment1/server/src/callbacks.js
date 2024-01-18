@@ -3,7 +3,8 @@ export const Empirica = new ClassicListenersCollector();
 import _ from "lodash";
 
 Empirica.onGameStart(({ game }) => {
-  const trueP = 0.7; //was 'treatment.trueP' in Robert's pseudocode
+  const treatment = game.get("treatment");
+  const { trueP } = treatment;
 
   const binomial = (p, n) => {
     const flips = _.range(n).map((i) => {
