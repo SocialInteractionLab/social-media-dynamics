@@ -37,10 +37,10 @@ Empirica.onGameStart(({ game }) => {
     player.set("emojiArray", emojiArray);
   });
 
-  [1, 2, 3, 4, 5, 6].forEach((i) => {
+    [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach((i) => {
     const round = game.addRound({
       idx: i,
-      name: "Round " + i + " / 6",
+      name: "Round " + i + " / 9",
       task: "Chat",
     });
     round.addStage({ name: "send", duration: 30 });
