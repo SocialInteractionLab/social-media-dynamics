@@ -13,7 +13,7 @@ export function Introduction({ next }) {
        <b> Please read the instructions carefully. There will be a quiz. You cannot continue to the game if you do not pass the quiz.</b> <br/>
         <br/>        
           In this game, you are part of a team of 6-8 players. You are all <b>neighbors </b>in the same area, using a semi-anonymous messaging app to talk to each other. 
-          While each individual message is only sent to and received by one person, everyone is talking to multiple people. At the current stage of this experiment, you are not exchanging messages, but leaving a message for someone else to read.<br />
+          While each individual message is only sent to and received by one person, everyone is talking to multiple people. At the current stage of this experiment, you are not exchanging messages, but <b>leaving a message for someone else to read.<b><br />
           <br/>Picture it like this, with each line being an interaction:
 
           <div className="network" style={{ margin: "20px" }}>
@@ -41,7 +41,7 @@ export function Introduction({ next }) {
                      <div className="mt-2 mb-6">
 
         <p className="text-sm text-gray-700">
-          <br/>Everyone on the team has a single  <b>window</b> they're looking out of, which you can see on the left of the image below. At the current stage of this experiment, you will only be getting one set of critters- the page reloading does not signal a new day (for now!)
+          <br/>Everyone on the team has a single  <b>window</b> they're looking out of, which you can see on the left of the image below. At the current stage of this experiment, you will only be getting <b>one set of critters</>- the page reloading does not signal a new day (for now!)
           <br/><div className="window" style={{ margin: "20px" }}>
             <center><img width="700px" src="./interaction.png" /></center>
           </div>
