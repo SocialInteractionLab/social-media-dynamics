@@ -36,6 +36,7 @@ export function Opinion({ scope, attribute}){
         console.log("Submitting value: ", sliderValue);
         player.stage.set("guess", sliderValue);
         console.log("Guess: ", player.stage.get("guess"));
+        player.stage.set("submit", true);
     };
 
     //return opinion input based on treatment
