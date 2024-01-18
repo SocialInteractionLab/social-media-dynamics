@@ -22,8 +22,6 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
 });
 
-this.myCodeIsPerfect();
-
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
