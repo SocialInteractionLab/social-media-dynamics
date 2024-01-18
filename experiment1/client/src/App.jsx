@@ -5,7 +5,7 @@ import React from "react";
 import { Game } from "./Game";
 import { ExitSurvey } from "./intro-exit/ExitSurvey";
 import { Introduction } from "./intro-exit/Introduction";
-
+import { Browser } from "./intro-exit/BrowserAdBlock";
 
 
 import {Consent }from "./intro-exit/Consent.jsx";
@@ -23,7 +23,7 @@ export default function App() {
   const url = `${protocol}//${host}/query`;
 
   function introSteps({ game, player }) {
-    return [Introduction, Practice, Quiz, Consent,];
+    return [Browser, Introduction, Practice, Quiz, Consent,];
   }
   function exitSteps({ game, player }) {
     return [ExitSurvey, Last];
