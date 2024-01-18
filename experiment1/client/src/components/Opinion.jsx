@@ -2,11 +2,14 @@ import React from "react";
 import {InputBox} from "./InputBox";
 import {usePlayer, useRound, useGame } from "@empirica/core/player/classic/react";
 import { Slider } from '@mui/material';
-
+import { useState } from "react";
 export function Opinion({ scope, attribute}){
     const round = useRound();
     const player = usePlayer();
     const game = useGame();
+
+    const [sliderValue, setSliderValue] = useState(50);
+    const [isSliderChanged, setIsSliderChanged] = useState(false); //track if slider has changed for submit
 
     //set component to appropiate opinion input based on treatment
     const toggle = game.get("treatment")["opinion"] === "slider" ? 1 : 0 ;
@@ -25,9 +28,16 @@ export function Opinion({ scope, attribute}){
     };
 
     const handleSlider = (event, value) => {
-        player.stage.set("guess", value)
+        setSliderValue(value);
+        setIsSliderChanged(true);
     }
     
+    const handleSubmit = () => {
+        console.log("Submitting value: ", sliderValue);
+        player.stage.set("guess", sliderValue);
+        console.log("Guess: ", player.stage.get("guess"));
+    };
+
     //return opinion input based on treatment
     return(
         <div>
@@ -35,7 +45,23 @@ export function Opinion({ scope, attribute}){
         toggle == 1 ?( 
             <div>
             <h2 className="text-center mb-5">What proportion of the population are rabbits?</h2><br/>
-            <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" onChangeCommitted={handleSlider} />
+            <div className = "flex items-center space-x-4">
+            <Slider 
+                        defaultValue={50} 
+                        aria-label="Default" 
+                        valueLabelDisplay="auto" 
+                        onChange={handleSlider}
+                        value={sliderValue}
+                        className = "flex-grow"
+                    />
+                    <button 
+                        onClick={handleSubmit} 
+                        disabled={!isSliderChanged}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    >
+                         Submit
+                    </button>
+                    </div>
           </div>
         ) : (
             <div>
