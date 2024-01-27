@@ -13,7 +13,7 @@ export function Introduction({ next }) {
        <b> Please read the instructions carefully. There will be a quiz. You cannot continue to the game if you do not pass the quiz.</b> <br/>
         <br/>        
           In this game, you are part of a team of 6-8 players. You are all <b>neighbors </b>in the same area, using a semi-anonymous messaging app to talk to each other. 
-          While each individual message is only sent to and received by one person, everyone is talking to multiple people. At the current stage of this experiment, you are not exchanging messages, but <b>leaving a message for someone else to read.</b><br />
+          While each individual message is only sent to and received by one person, everyone is talking to multiple people. <br />
           <br/>Picture it like this, with each line being an interaction:
 
           <div className="network" style={{ margin: "20px" }}>
@@ -43,7 +43,7 @@ export function Introduction({ next }) {
 		 <br/>
 		 Everyone on the team has a single  <b>window</b> they're looking out of, which you can see on the left of the image below.
 		 You will only be seeing <b>one set of critters</b> that will stay the same throughout the entire study.
-		 A new "round" (typing a message to a new neighbor) does not signal a new day or new animals. 
+		 A new "round" (talking to a new neighbor) does not signal a new day or new animals. 
 		 <br/>
 		 <div className="window" style={{ margin: "20px" }}>
 		     <center><img width="700px" src="./interaction.png" /></center>
@@ -51,7 +51,7 @@ export function Introduction({ next }) {
 
 		 You're going to share what you think with your neighbor using the <b>messaging app</b>, seen to the right of the image.<br/> <br/>
 
-		 Following this, you will read someone else's thoughts and make a judgment of the ratio of rabbits to squirrels using the <b>slider</b>. <br/> <br/> 
+		 Following this, you make a judgment of the ratio of rabbits to squirrels using the <b>slider</b>. <br/> <br/> 
 		 The <b>slider</b> measures the proportion of the population as a percentage <b> of rabbits</b>.
 		 So if you think the population is half (or 50%) rabbits, you would put the slider in the middle.
 		 If you think it's all squirrels (0% rabbits) you would put it at the leftmost end. 
